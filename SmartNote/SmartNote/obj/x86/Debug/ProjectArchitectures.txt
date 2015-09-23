@@ -1,0 +1,1 @@
+C:\SmartNote\SmartNote\SmartNote\SmartNote.csproj;x86
