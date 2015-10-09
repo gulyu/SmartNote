@@ -83,7 +83,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\TestEntity.cs" />
+    <Compile Include="Entities\Attachment.cs" />
+    <Compile Include="Entities\DeleteNote.cs" />
+    <Compile Include="Entities\GetAllNote.cs" />
+    <Compile Include="Entities\InsertNote.cs" />
+    <Compile Include="Entities\Note.cs" />
+    <Compile Include="Entities\UpdateNote.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="SmartNoteService.svc.cs">
       <DependentUpon>SmartNoteService.svc</DependentUpon>
     </Compile>
@@ -101,6 +107,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SrvSmartNote\SrvSmartNote.csproj">
+      <Project>{0d0c58b3-bdf0-4623-9f98-0bf7dba5911b}</Project>
+      <Name>SrvSmartNote</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

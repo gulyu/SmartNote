@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 namespace SmartNoteService.Entities
 {
     [DataContract]
-    public class TestMethodRequest
+    public class DeleteNoteRequest
     {
         [DataMember]
-        public int Count { get; set; }
+        public Note Note { get; set; }
     }
 
     [DataContract]
-    public class TestMethodResponse
+    public class DeleteNoteResponse
     {
         [DataMember]
-        public List<int> List { get; set; }
+        public bool Success { get; set; }
     }
 }

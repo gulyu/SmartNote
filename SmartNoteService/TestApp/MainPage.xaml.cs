@@ -31,7 +31,10 @@ namespace TestApp
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
             TestMethodRequest req = new TestMethodRequest();
-            req.Count = 5;
+            int t;
+            Int32.TryParse(textBox.Text, out t);
+            req.Count = t;
+
 
             TestMethodResponse resp = await SendMessage<TestMethodRequest, TestMethodResponse>(req, "http://localhost/SmartNoteService/SmartNoteService.svc/TestMethod/");
 

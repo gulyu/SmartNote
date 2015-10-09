@@ -6,23 +6,34 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using SrvSmartNote;
 
 namespace SmartNoteService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SmartNoteService : ISmartNoteService
     {
-        public TestMethodResponse TestMethod(TestMethodRequest input)
+        public GetAllNoteResponse GetAllNote(GetAllNoteRequest input)
         {
-            TestMethodResponse response = new TestMethodResponse();
-            response.List = new List<int>();
-
-            for (int i = 0; i < input.Count; i++)
-            {
-                response.List.Add(i);
-            }
+            SrvSmartNote.SmartNoteService srv = new SrvSmartNote.SmartNoteService();
+            GetAllNoteResponse response = null;
 
             return response;
+        }
+
+        public InsertNoteResponse InsertNote(InsertNoteRequest input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UpdateNoteResponse UpdateNote(UpdateNoteRequest input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DeleteNoteResponse DeleteNote(DeleteNoteRequest input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

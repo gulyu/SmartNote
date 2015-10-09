@@ -10,6 +10,7 @@
     <Grid>
         <Button Content="Push!" Name="btnSend" Width="100" Height="30" Click="btnSend_Click" Background="Aqua" HorizontalAlignment="Center"></Button>
         <TextBlock Name="tbRes" Width="100" Height="100" Margin="695,310,485,310" ></TextBlock>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="471,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
     </Grid>
 
 </Page>
