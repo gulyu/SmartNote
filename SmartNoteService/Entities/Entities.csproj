@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0D0C58B3-BDF0-4623-9F98-0BF7DBA5911B}</ProjectGuid>
+    <ProjectGuid>{FA12FDE0-BA4B-4EEC-AD04-CC1C0C8DE327}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SrvSmartNote</RootNamespace>
-    <AssemblyName>SrvSmartNote</AssemblyName>
+    <RootNamespace>Entities</RootNamespace>
+    <AssemblyName>Entities</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,19 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISmartNoteService.cs" />
-    <Compile Include="SmartNoteService.cs" />
+    <Compile Include="Attachment.cs" />
+    <Compile Include="DeleteNote.cs" />
+    <Compile Include="GetAllNote.cs" />
+    <Compile Include="InsertNote.cs" />
+    <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BllSmartNote\BllSmartNote.csproj">
-      <Project>{71a74fc8-43b2-4437-90f3-fee664a2fd13}</Project>
-      <Name>BllSmartNote</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{fa12fde0-ba4b-4eec-ad04-cc1c0c8de327}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
+    <Compile Include="UpdateNote.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
