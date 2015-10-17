@@ -26,5 +26,13 @@ namespace SmartNote
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Ki és bekapcsolja a kereső sávot
+        /// </summary>
+        private void openSerachPane_Click(object sender, RoutedEventArgs e)
+        {
+            searchSplitView.IsPaneOpen = !searchSplitView.IsPaneOpen;
+        }
     }
 }
