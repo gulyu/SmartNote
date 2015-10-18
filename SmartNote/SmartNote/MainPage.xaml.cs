@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,6 +29,11 @@ namespace SmartNote
         public MainPage()
         {
             this.InitializeComponent();
+            // Some people said, that it can initialize the size of the screen, but i can't see any difference
+            // with it, or without it :)
+            Size size = new Size { Height = 600, Width = 800 };
+            ApplicationView.PreferredLaunchViewSize = size;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         /// <summary>
@@ -38,6 +44,12 @@ namespace SmartNote
             searchSplitView.IsPaneOpen = !searchSplitView.IsPaneOpen;
         }
 
+        /// <summary>
+        /// Az oldal betöltődése után elsülő esemény kezelő függvénye. Egyenlőre
+        /// mockolt objektumok beállítására használom, később lehet nem is kell majd.
+        /// Kivételkor figyelni kell, hogy a xaml-ben lévő "Loaded" attribútumát
+        /// ki kell venni a page tag-nek.
+        /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.mcList = new List<MockedNotes>();
@@ -68,6 +80,10 @@ namespace SmartNote
         }
     }
 
+    /// <summary>
+    /// Mockolt Note osztály, később biztosan törölni kell.
+    /// Most az adatbázist helyettesíti.
+    /// </summary>
     public class MockedNotes
     {
         public String name { get; set; }

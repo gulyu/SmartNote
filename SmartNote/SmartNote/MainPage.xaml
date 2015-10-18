@@ -54,7 +54,7 @@
                                             <TextBlock Grid.Column="0" Text="{Binding name}" Padding="10" TextWrapping="Wrap"/>
                                             <TextBlock Grid.Column="1" Text="{Binding creationDate}" Padding="10"/>
                                             <TextBlock Grid.Column="2" Text="{Binding modifyDate}" Padding="10"/>
-                                            <CheckBox Grid.Column="3" IsChecked="{Binding isChecked}" Padding="10"/>
+                                            <CheckBox Grid.Column="3" IsChecked="{Binding isChecked}" IsEnabled="False" Padding="10"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -64,12 +64,20 @@
                 </SplitView>
             </PivotItem>
             <PivotItem Header="Szerkesztés">
-                <Grid/>
+                <Grid>
+                    <!-- Ide kell rakni majd a text editort. Annyi biztos, hogy UWP alatt a RichTextBlock egész jól van támogatva ilyen téren.-->
+                </Grid>
             </PivotItem>
             <PivotItem Header="Olvasás">
-                <Grid/>
+                <Grid>
+                    <RichTextBlock HorizontalAlignment="Left" Height="605" Margin="10,10,0,0" VerticalAlignment="Top" Width="1236" Padding="10">
+                        <Paragraph>
+                            <Run Text="Ez lesz itt az olvasás mód..."/>
+                        </Paragraph>
+                    </RichTextBlock>
+
+                </Grid>
             </PivotItem>
         </Pivot>
-
     </Grid>
 </Page>
