@@ -5,7 +5,9 @@
     xmlns:local="using:SmartNote"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:Collections="using:System.Collections"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Title="Feljegyzések alkalmazás">
@@ -14,21 +16,49 @@
                            " HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="1137">
                     <SplitView.Pane>
                         <Grid>
-                            <TextBox x:Name="title" HorizontalAlignment="Left" Height="5" TextWrapping="Wrap" Text="Cím..." VerticalAlignment="Top" Width="340" Margin="70,48,0,0"/>
-                            <DatePicker x:Name="creationDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,85,0,0"/>
-                            <DatePicker x:Name="modifyDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,122,0,0"/>
-                            <ComboBox x:Name="priority" HorizontalAlignment="Left" Margin="70,186,0,0" VerticalAlignment="Top" Width="340"/>
-                            <CheckBox x:Name="hasFile" Content="Csatolt fájl?" HorizontalAlignment="Left" Margin="70,154,0,0" VerticalAlignment="Top" Width="180"/>
-                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,223,0,0"/>
-                            <Button x:Name="openSerachPane" HorizontalAlignment="Left" Width="50" Margin="10,11,0,0" VerticalAlignment="Top" Click="openSerachPane_Click">
+                            <TextBlock x:Name="titleTextBlock" HorizontalAlignment="Left" Margin="70,10,0,0" TextWrapping="Wrap" Text="Cím" VerticalAlignment="Top"/>
+                            <TextBox x:Name="title" HorizontalAlignment="Left" Height="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Margin="70,30,0,0"/>
+                            <TextBlock x:Name="creationDateTextBlock" HorizontalAlignment="Left" Margin="70,67,0,0" TextWrapping="Wrap" Text="Létrehozás dátuma" VerticalAlignment="Top"/>
+                            <DatePicker x:Name="creationDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,87,0,0"/>
+                            <TextBlock x:Name="modifyDateTextBlock" HorizontalAlignment="Left" Margin="70,124,0,0" TextWrapping="Wrap" Text="Módosítás dátuma" VerticalAlignment="Top"/>
+                            <DatePicker x:Name="modifyDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,144,0,0"/>
+                            <TextBlock x:Name="priorityTextBlock" HorizontalAlignment="Left" Margin="70,181,0,0" TextWrapping="Wrap" Text="Prioritás" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="priority" HorizontalAlignment="Left" Margin="70,201,0,0" VerticalAlignment="Top" Width="340"/>
+                            <CheckBox x:Name="hasFile" Content="Tartozik hozzá fájl" HorizontalAlignment="Left" Margin="70,238,0,0" VerticalAlignment="Top" Width="340"/>
+                            <TextBlock x:Name="searchBy" HorizontalAlignment="Left" Margin="70,275,0,0" TextWrapping="Wrap" Text="Keresés ..." VerticalAlignment="Top"/>
+                            <CheckBox x:Name="byCreationDate" Content="létrehozás dátuma alapján" HorizontalAlignment="Left" Margin="70,322,0,0" VerticalAlignment="Top" Width="203"/>
+                            <CheckBox x:Name="byModifyDate" Content="módosítás dátuma alapján" HorizontalAlignment="Left" Margin="70,290,0,0" VerticalAlignment="Top" Width="211"/>
+                            <CheckBox x:Name="byPriority" Content="prioritás alapján" HorizontalAlignment="Left" Margin="281,290,-3,0" VerticalAlignment="Top" Width="147"/>
+                            <CheckBox x:Name="byTitle" Content="cím alapján" HorizontalAlignment="Left" Margin="281,322,0,0" VerticalAlignment="Top" Width="54"/>
+                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,379,0,0"/>
+                            <Button x:Name="openSerachPane" HorizontalAlignment="Left" Width="50" Margin="10,10,0,0" VerticalAlignment="Top" Click="openSerachPane_Click">
                                 <SymbolIcon Symbol="Find"/>
+                            </Button>
+                            <Button x:Name="addNewNote" HorizontalAlignment="Left" Width="50" Margin="10,47,0,0" VerticalAlignment="Top">
+                                <SymbolIcon Symbol="Add"/>
                             </Button>
                         </Grid>
                     </SplitView.Pane>
                     <SplitView.Content>
                         <Grid>
-                            <TextBlock Text="SplitView Basic asdasdasdasdasdasdasdasdasdasdasdasdsadsadsadsadasdasd" FontSize="15" Foreground="Black"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,531,10" Width="526" Height="479"/>
+                            <ListView Name="noteListView" Margin="10">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding name}" Padding="10" TextWrapping="Wrap"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding creationDate}" Padding="10"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding modifyDate}" Padding="10"/>
+                                            <CheckBox Grid.Column="3" IsChecked="{Binding isChecked}" Padding="10"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
                     </SplitView.Content>
                 </SplitView>
