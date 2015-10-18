@@ -1,6 +1,5 @@
 ﻿{
   "dependencies": {
-    "EntityFramework.SQLite": "7.0.0-beta6",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Newtonsoft.Json": "7.0.1"
   },

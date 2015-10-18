@@ -75,7 +75,6 @@
                             <Run Text="Ez lesz itt az olvasás mód..."/>
                         </Paragraph>
                     </RichTextBlock>
-
                 </Grid>
             </PivotItem>
         </Pivot>
