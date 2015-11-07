@@ -108,8 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISmartNoteDal.cs" />
+    <Compile Include="Migrations\20151107144327_SmartNoteMigration.cs" />
+    <Compile Include="Migrations\20151107144327_SmartNoteMigration.designer.cs">
+      <DependentUpon>20151107144327_SmartNoteMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\SQLiteContextModelSnapshot.cs" />
     <Compile Include="SmartNoteDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartNoteDalSQLite.cs" />
+    <Compile Include="SQLiteContext.cs" />
     <Content Include="Properties\DalSmartNote.rd.xml" />
   </ItemGroup>
   <ItemGroup>

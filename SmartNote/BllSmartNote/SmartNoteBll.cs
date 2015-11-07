@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmartNoteService.Entities;
+using DalSmartNote;
+using Microsoft.Data.Entity;
 
 namespace BllSmartNote
 {
     public class SmartNoteBll : ISmartNoteBll
     {
+        private static ISmartNoteDal smartNoteDal;
+
+        public SmartNoteBll()
+        {
+            smartNoteDal = new SmartNoteDalSQLite();
+        }
+
         public bool DeleteNote(Note input)
         {
             throw new NotImplementedException();
@@ -16,12 +25,21 @@ namespace BllSmartNote
 
         public List<Note> GetAllNote(User input)
         {
-            throw new NotImplementedException();
+            return smartNoteDal.GetAllNote(input);
+        }
+
+        public void InitializeSQLiteDatabase()
+        {
+            // SQLite adatbázis inicializáció.
+            using(var db = new SQLiteContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         public bool InsertNote(Note input)
         {
-            throw new NotImplementedException();
+            return smartNoteDal.InsertNote(input);
         }
 
         public bool UpdateNote(Note input)

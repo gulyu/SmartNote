@@ -51,10 +51,10 @@
                                                 <ColumnDefinition />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" Text="{Binding name}" Padding="10" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding creationDate}" Padding="10"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding modifyDate}" Padding="10"/>
-                                            <CheckBox Grid.Column="3" IsChecked="{Binding isChecked}" IsEnabled="False" Padding="10"/>
+                                            <TextBlock Grid.Column="0" Text="{Binding Title}" Padding="10" TextWrapping="Wrap"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Text}" Padding="10"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding CreationDate}" Padding="10"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding ModificationDate}" Padding="10"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

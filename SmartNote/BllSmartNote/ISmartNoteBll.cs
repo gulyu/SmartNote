@@ -16,5 +16,7 @@ namespace BllSmartNote
         bool UpdateNote(Note input);
 
         bool DeleteNote(Note input);
+
+        void InitializeSQLiteDatabase();
     }
 }

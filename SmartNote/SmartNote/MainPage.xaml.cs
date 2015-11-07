@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BllSmartNote;
+using SmartNoteService.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,12 +25,14 @@ namespace SmartNote
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        public List<MockedNotes> mcList;
+        private ISmartNoteBll smartNoteBll;
+        private List<Note> noteList;
 
         public MainPage()
         {
             this.InitializeComponent();
+            this.smartNoteBll = new SmartNoteBll();
+            this.noteList = new List<Note>();
             // Some people said, that it can initialize the size of the screen, but i can't see any difference
             // with it, or without it :)
             Size size = new Size { Height = 600, Width = 800 };
@@ -45,50 +49,22 @@ namespace SmartNote
         }
 
         /// <summary>
-        /// Az oldal betöltődése után elsülő esemény kezelő függvénye. Egyenlőre
-        /// mockolt objektumok beállítására használom, később lehet nem is kell majd.
-        /// Kivételkor figyelni kell, hogy a xaml-ben lévő "Loaded" attribútumát
-        /// ki kell venni a page tag-nek.
+        /// Az oldal betöltődése után elsülő esemény kezelő függvénye.
+        /// Az adatbázis elment egy tényleges note objektumot, majd onnan kéri vissza.
         /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.mcList = new List<MockedNotes>();
-            MockedNotes mn = new MockedNotes();
-            MockedNotes mn1 = new MockedNotes();
-            MockedNotes mn2 = new MockedNotes();
-
-            mn.creationDate = "2014.07.08.";
-            mn.modifyDate = "2015.02.03.";
-            mn.name = "Ez egy jegyzet az angoil történelemről";
-            mn.isChecked = true;
-
-            mn1.creationDate = "2015.01.02.";
-            mn1.modifyDate = "2015.09.06.";
-            mn1.name = "Bináris futtatható objektumok visszafejtése";
-            mn1.isChecked = true;
-
-            mn2.creationDate = "2015.06.05.";
-            mn2.modifyDate = "2015.10.18.";
-            mn2.name = "Matematika struktúrák alkalmazása";
-            mn2.isChecked = true;
-
-            mcList.Add(mn);
-            mcList.Add(mn1);
-            mcList.Add(mn2);
-
-            noteListView.ItemsSource = this.mcList;
+            Note n = new Note();
+            n.CreationDate = DateTime.Today;
+            n.ModoficationDate = DateTime.Today;
+            n.Text = "BlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablabla";
+            n.Title = "BlaBla tétele";
+            bool insertResult = smartNoteBll.InsertNote(n);
+            if(insertResult)
+            {
+                this.noteList = smartNoteBll.GetAllNote(new User());
+            }
+            noteListView.ItemsSource = this.noteList;
         }
-    }
-
-    /// <summary>
-    /// Mockolt Note osztály, később biztosan törölni kell.
-    /// Most az adatbázist helyettesíti.
-    /// </summary>
-    public class MockedNotes
-    {
-        public String name { get; set; }
-        public String creationDate { get; set; }
-        public String modifyDate { get; set; }
-        public Boolean isChecked { get; set; }
     }
 }

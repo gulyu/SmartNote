@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BllSmartNote;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace SmartNote
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // BLL objektum létrehozása az adatbázis inicializálásához.
+            SmartNoteBll smartNoteBll = new SmartNoteBll();
+            // Az SQLite adatbázis inicializációja abban az esetben,
+            // ha nem létezik az adatbázis fájl.
+            smartNoteBll.InitializeSQLiteDatabase();
         }
 
         /// <summary>
