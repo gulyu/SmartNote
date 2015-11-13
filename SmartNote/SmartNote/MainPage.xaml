@@ -8,7 +8,6 @@
     xmlns:Collections="using:System.Collections"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Title="Feljegyzések alkalmazás">
             <PivotItem Header="Keresés">
@@ -65,7 +64,7 @@
             </PivotItem>
             <PivotItem Header="Szerkesztés">
                 <Grid>
-                    <!-- Ide kell rakni majd a text editort. Annyi biztos, hogy UWP alatt a RichTextBlock egész jól van támogatva ilyen téren.-->
+                    <local:SmartRichTextControl x:Name="smtcEditor"></local:SmartRichTextControl>
                 </Grid>
             </PivotItem>
             <PivotItem Header="Olvasás">

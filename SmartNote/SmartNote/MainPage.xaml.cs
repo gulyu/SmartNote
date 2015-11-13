@@ -54,16 +54,16 @@ namespace SmartNote
         /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Note n = new Note();
-            n.CreationDate = DateTime.Today;
-            n.ModoficationDate = DateTime.Today;
-            n.Text = "BlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablabla";
-            n.Title = "BlaBla tétele";
-            bool insertResult = smartNoteBll.InsertNote(n);
-            if(insertResult)
-            {
+            //Note n = new Note();
+            //n.CreationDate = DateTime.Today;
+            //n.ModoficationDate = DateTime.Today;
+            //n.Text = "BlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablabla";
+            //n.Title = "BlaBla tétele";
+            //bool insertResult = smartNoteBll.InsertNote(n);
+            //if(insertResult)
+            //{
                 this.noteList = smartNoteBll.GetAllNote(new User());
-            }
+            //}
             noteListView.ItemsSource = this.noteList;
         }
     }
