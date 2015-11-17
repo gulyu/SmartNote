@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,6 +29,8 @@ namespace SmartNote
     {
         private ISmartNoteBll smartNoteBll;
         private List<Note> noteList;
+        private List<StorageFile> noteFileList;
+        private Note selectedNote;
 
         public MainPage()
         {
@@ -65,6 +69,71 @@ namespace SmartNote
                 this.noteList = smartNoteBll.GetAllNote(new User());
             //}
             noteListView.ItemsSource = this.noteList;
+        }
+
+        private async void btnFilePicker_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.FileTypeFilter.Add("*");
+            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
+            if (files != null && files.Count > 0)
+            {
+                string output = "";
+
+                foreach (StorageFile file in files)
+                {
+                    output += file.Name + Environment.NewLine;
+                }
+                tbPickedFiles.Text = output;
+
+                if (this.noteFileList != null)
+                {
+                    this.noteFileList.AddRange(files);
+                }
+                else
+                {
+                    this.noteFileList = new List<StorageFile>();
+                    this.noteFileList.AddRange(files);
+                }
+            }
+            else
+            {
+                tbPickedFiles.Text = "";
+            }
+        }
+
+        private void noteListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView noteListView = sender as ListView;
+
+            if (noteListView != null)
+            {
+                Note selected = noteListView.SelectedItem as Note;
+
+                //Bele tesszük ha null, ha nem mert lehet, hogy induláskor nincs kiválasztva semmi
+                //TODO: Legyen kiválasztva a lista első eleme?
+                this.selectedNote = selected;
+
+                //TODO: SmartRichtextControl bindable legyen, Note-ot hozzákötni
+                this.smtcEditor.setText(selected.Text);
+            }
+        }
+
+        private void pTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pivot pivot = sender as Pivot;
+
+            if (pivot != null)
+            {
+                PivotItem selectedPivotItem = pivot.SelectedItem as PivotItem;
+
+                if (selectedPivotItem != null)
+                {
+                    //
+                }
+            }
         }
     }
 }

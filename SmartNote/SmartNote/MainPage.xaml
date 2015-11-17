@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot Title="Feljegyzések alkalmazás">
+        <Pivot Name="pTabs" Title="Feljegyzések alkalmazás" SelectionChanged="pTabs_SelectionChanged">
             <PivotItem Header="Keresés">
                 <SplitView Name="searchSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="70" OpenPaneLength="425
                            " HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="1137">
@@ -40,7 +40,7 @@
                     </SplitView.Pane>
                     <SplitView.Content>
                         <Grid>
-                            <ListView Name="noteListView" Margin="10">
+                            <ListView Name="noteListView" Margin="10" SelectionChanged="noteListView_SelectionChanged">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -62,9 +62,25 @@
                     </SplitView.Content>
                 </SplitView>
             </PivotItem>
-            <PivotItem Header="Szerkesztés">
-                <Grid>
-                    <local:SmartRichTextControl x:Name="smtcEditor"></local:SmartRichTextControl>
+            <PivotItem Name="piSzerkesztes" Header="Szerkesztés">
+                <Grid Name="gridSzerkesztes">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Name="gridRichTextEditor">
+                        <local:SmartRichTextControl x:Name="smtcEditor"></local:SmartRichTextControl>
+                    </Grid>
+                    <Grid Grid.Row="1" Name="gridFilePicker">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="btnFilePicker" Content="Tallózás" Margin="0,10,10,0" Click="btnFilePicker_Click"/>
+                        <ScrollViewer Grid.Column="1">
+                            <TextBlock x:Name="tbPickedFiles"/>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
             </PivotItem>
             <PivotItem Header="Olvasás">
