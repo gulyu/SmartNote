@@ -5,10 +5,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
+using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -118,6 +122,11 @@ namespace SmartNote
 
                 //TODO: SmartRichtextControl bindable legyen, Note-ot hozzákötni
                 this.smtcEditor.setText(selected.Text);
+                this.tbEditTitle.Text = selected.Title;
+
+                //TODO: FilePicker beállítása == List<StorageFile> noteFileList beállítása
+                //this.tbPickedFiles
+                this.runReaderText.Text = selected.Text;
             }
         }
 
@@ -134,6 +143,76 @@ namespace SmartNote
                     //
                 }
             }
+        }
+
+        private async void btnSaveNote_Click(object sender, RoutedEventArgs e)
+        {
+            //Csatolmányok feldolgozása
+            List<Attachment> attachmentList = new List<Attachment>();
+            if (this.noteFileList != null)
+            {
+                foreach (StorageFile file in this.noteFileList)
+                {
+                    //TODO: ID-val mi van?
+                    Attachment attachment = new Attachment();
+                    attachment.Name = file.Name;
+                    attachment.Extension = file.FileType;
+                    attachment.Size = (await file.GetBasicPropertiesAsync()).Size;
+                    attachment.Content = await ReadFile(file);
+
+                    attachmentList.Add(attachment);
+                }
+                this.selectedNote.Attachments = attachmentList;
+            }
+
+            this.selectedNote.ModoficationDate = DateTime.Now;
+            this.selectedNote.Text = this.smtcEditor.getText();
+            this.selectedNote.Title = this.tbEditTitle.Text;
+
+            //TODO: DB művelet
+            //if (új)
+            //{
+            //    Insert
+            //}
+            //else if (szerkesztett)
+            //{
+            //    Update
+            //}
+        }
+
+        public async Task<byte[]> ReadFile(StorageFile file)
+        {
+            byte[] fileBytes = null;
+            using (IRandomAccessStreamWithContentType stream = await file.OpenReadAsync())
+            {
+                fileBytes = new byte[stream.Size];
+                using (DataReader reader = new DataReader(stream))
+                {
+                    await reader.LoadAsync((uint)stream.Size);
+                    reader.ReadBytes(fileBytes);
+                }
+            }
+            return fileBytes;
+        }
+
+        private void addNewNote_Click(object sender, RoutedEventArgs e)
+        {
+            Note newNote = new Note();
+            newNote.CreationDate = DateTime.Now;
+
+            //TODO: User kezelés
+            //newNote.Author = User...
+
+            this.noteList.Add(newNote);
+            this.selectedNote = newNote;
+
+            //Üresre inicializál itt most
+            this.smtcEditor.setText("");
+            this.tbEditTitle.Text = "";
+            this.tbPickedFiles.Text = "";
+            this.runReaderText.Text = "";
+
+            this.pTabs.SelectedIndex = 1;
         }
     }
 }

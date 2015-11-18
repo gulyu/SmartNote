@@ -147,5 +147,10 @@ namespace SmartNote
             focus();
             return this.rtbEditor.Document.Selection.ParagraphFormat.Alignment.Equals(ParagraphAlignment.Right);
         }
+
+        private void tgbLink_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: link kezelés
+        }
     }
 }
