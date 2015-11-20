@@ -103,6 +103,7 @@
     <Compile Include="SmartRichTextControl.xaml.cs">
       <DependentUpon>SmartRichTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StringFormatConverter.cs" />
     <Compile Include="WebServiceProxy\SmartNoteWCFProxy.cs" />
   </ItemGroup>
   <ItemGroup>

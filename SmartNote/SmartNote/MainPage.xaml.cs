@@ -245,5 +245,20 @@ namespace SmartNote
             this.piOlvasas.IsEnabled = true;
             this.pTabs.SelectedIndex = 1;
         }
+
+        private void deleteNote_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.selectedNote != null)
+            {
+                bool res = this.smartNoteBll.DeleteNote(this.selectedNote);
+
+                if (res)
+                {
+                    this.selectedNote = null;
+                    this.noteList = smartNoteBll.GetAllNote(new User());
+                    this.noteListView.ItemsSource = this.noteList;
+                }
+            }
+        }
     }
 }

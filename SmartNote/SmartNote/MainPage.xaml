@@ -8,6 +8,9 @@
     xmlns:Collections="using:System.Collections"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
+    <UserControl.Resources>
+        <local:StringFormatConverter x:Key="StringFormat"></local:StringFormatConverter>
+    </UserControl.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Name="pTabs" Title="Feljegyzések alkalmazás" SelectionChanged="pTabs_SelectionChanged">
             <PivotItem Header="Keresés" Name="piKereses" TabIndex="0">
@@ -36,6 +39,9 @@
                             <Button x:Name="addNewNote" HorizontalAlignment="Left" Width="50" Margin="10,47,0,0" VerticalAlignment="Top" Click="addNewNote_Click">
                                 <SymbolIcon Symbol="Add"/>
                             </Button>
+                            <Button x:Name="deleteNote" HorizontalAlignment="Left" Width="50" Margin="10,84,0,0" VerticalAlignment="Top" Click="deleteNote_Click">
+                                <SymbolIcon Symbol="Delete"/>
+                            </Button>
                         </Grid>
                     </SplitView.Pane>
                     <SplitView.Content>
@@ -48,12 +54,10 @@
                                                 <ColumnDefinition />
                                                 <ColumnDefinition />
                                                 <ColumnDefinition />
-                                                <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Title}" Padding="10" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Text}" Padding="10"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding CreationDate}" Padding="10"/>
-                                            <TextBlock Grid.Column="3" Text="{Binding ModificationDate}" Padding="10"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding CreationDate, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='{}{0:yyyy/MM/dd}'}" Padding="10" />
+                                            <TextBlock Grid.Column="2" Text="{Binding ModoficationDate, Converter={StaticResource ResourceKey=StringFormat}, ConverterParameter='{}{0:yyyy/MM/dd}'}" Padding="10"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
