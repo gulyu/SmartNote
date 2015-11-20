@@ -20,7 +20,7 @@ namespace BllSmartNote
 
         public bool DeleteNote(Note input)
         {
-            throw new NotImplementedException();
+            return smartNoteDal.DeleteNote(input);
         }
 
         public List<Note> GetAllNote(User input)
