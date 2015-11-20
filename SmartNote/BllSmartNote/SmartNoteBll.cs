@@ -44,7 +44,7 @@ namespace BllSmartNote
 
         public bool UpdateNote(Note input)
         {
-            throw new NotImplementedException();
+            return smartNoteDal.UpdateNote(input);
         }
     }
 }

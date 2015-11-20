@@ -10,7 +10,7 @@
     Loaded="Page_Loaded">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Name="pTabs" Title="Feljegyzések alkalmazás" SelectionChanged="pTabs_SelectionChanged">
-            <PivotItem Header="Keresés">
+            <PivotItem Header="Keresés" Name="piKereses" TabIndex="0">
                 <SplitView Name="searchSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="70" OpenPaneLength="425
                            " HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="1137">
                     <SplitView.Pane>
@@ -62,7 +62,7 @@
                     </SplitView.Content>
                 </SplitView>
             </PivotItem>
-            <PivotItem Name="piSzerkesztes" Header="Szerkesztés">
+            <PivotItem Name="piSzerkesztes" Header="Szerkesztés" TabIndex="1" IsEnabled="False">
                 <Grid Name="gridSzerkesztes">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -90,7 +90,7 @@
                     </Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Olvasás">
+            <PivotItem Header="Olvasás" Name="piOlvasas" TabIndex="2" IsEnabled="False">
                 <Grid>
                     <RichTextBlock Name="rtbRead" Height="605" Margin="10,10,0,0" Width="1236" Padding="10" ScrollViewer.VerticalScrollMode="Auto">
                         <Paragraph>

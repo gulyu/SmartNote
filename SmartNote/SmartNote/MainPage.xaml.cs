@@ -70,9 +70,9 @@ namespace SmartNote
             //bool insertResult = smartNoteBll.InsertNote(n);
             //if(insertResult)
             //{
-                this.noteList = smartNoteBll.GetAllNote(new User());
+                //this.noteList = smartNoteBll.GetAllNote(new User());
             //}
-            noteListView.ItemsSource = this.noteList;
+            //this.noteListView.ItemsSource = this.noteList;
         }
 
         private async void btnFilePicker_Click(object sender, RoutedEventArgs e)
@@ -117,16 +117,33 @@ namespace SmartNote
                 Note selected = noteListView.SelectedItem as Note;
 
                 //Bele tesszük ha null, ha nem mert lehet, hogy induláskor nincs kiválasztva semmi
-                //TODO: Legyen kiválasztva a lista első eleme?
                 this.selectedNote = selected;
+                if (selected != null)
+                {
+                    this.piSzerkesztes.IsEnabled = true;
+                    this.piOlvasas.IsEnabled = true;
 
-                //TODO: SmartRichtextControl bindable legyen, Note-ot hozzákötni
-                this.smtcEditor.setText(selected.Text);
-                this.tbEditTitle.Text = selected.Title;
+                    this.smtcEditor.setText(selected.Text);
+                    this.tbEditTitle.Text = selected.Title;
 
-                //TODO: FilePicker beállítása == List<StorageFile> noteFileList beállítása
-                //this.tbPickedFiles
-                this.runReaderText.Text = selected.Text;
+                    string fileNames = "";
+
+                    if (selected.Attachments != null)
+                    {
+                        foreach (var file in selected.Attachments)
+                        {
+                            fileNames += file.Name + Environment.NewLine;
+                        }
+                    }
+
+                    this.tbPickedFiles.Text = fileNames;
+                    this.runReaderText.Text = selected.Text;
+                }
+                else
+                {
+                    this.piSzerkesztes.IsEnabled = false;
+                    this.piOlvasas.IsEnabled = false;
+                }
             }
         }
 
@@ -140,7 +157,11 @@ namespace SmartNote
 
                 if (selectedPivotItem != null)
                 {
-                    //
+                    if (selectedPivotItem.TabIndex == 0)
+                    {
+                        this.noteList = smartNoteBll.GetAllNote(new User());
+                        this.noteListView.ItemsSource = this.noteList;
+                    }    
                 }
             }
         }
@@ -153,7 +174,6 @@ namespace SmartNote
             {
                 foreach (StorageFile file in this.noteFileList)
                 {
-                    //TODO: ID-val mi van?
                     Attachment attachment = new Attachment();
                     attachment.Name = file.Name;
                     attachment.Extension = file.FileType;
@@ -169,15 +189,24 @@ namespace SmartNote
             this.selectedNote.Text = this.smtcEditor.getText();
             this.selectedNote.Title = this.tbEditTitle.Text;
 
-            //TODO: DB művelet
-            //if (új)
-            //{
-            //    Insert
-            //}
-            //else if (szerkesztett)
-            //{
-            //    Update
-            //}
+            bool res;
+            if (this.selectedNote.Id == 0)
+            {
+                res = this.smartNoteBll.InsertNote(this.selectedNote);
+            }
+            else
+            {
+                res = this.smartNoteBll.UpdateNote(this.selectedNote);
+            }
+
+            if (res)
+            {
+                this.pTabs.SelectedIndex = 0;
+            }
+            else
+            {
+                //Hibaüzenet
+            }
         }
 
         public async Task<byte[]> ReadFile(StorageFile file)
@@ -203,7 +232,7 @@ namespace SmartNote
             //TODO: User kezelés
             //newNote.Author = User...
 
-            this.noteList.Add(newNote);
+            //this.noteList.Add(newNote);
             this.selectedNote = newNote;
 
             //Üresre inicializál itt most
@@ -212,6 +241,8 @@ namespace SmartNote
             this.tbPickedFiles.Text = "";
             this.runReaderText.Text = "";
 
+            this.piSzerkesztes.IsEnabled = true;
+            this.piOlvasas.IsEnabled = true;
             this.pTabs.SelectedIndex = 1;
         }
     }
