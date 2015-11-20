@@ -14,6 +14,7 @@ namespace DalSmartNote
     {
         public DbSet<Note> notes { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<Attachment> attachments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

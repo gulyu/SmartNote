@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SmartNoteService.Entities;
 
 namespace DalSmartNote
@@ -51,23 +49,11 @@ namespace DalSmartNote
         {
             using (var db = new SQLiteContext())
             {
+                db.Update(input);
+                db.SaveChanges();
+
                 Note note = db.notes.Where(n => n.Id == input.Id).FirstOrDefault();
-                if(note != null)
-                {
-                    note.Links = input.Links;
-                    note.Text = input.Text;
-                    note.Title = input.Title;
-                    note.Attachments = input.Attachments;
-                    note.Author = input.Author;
-                    note.CreationDate = input.CreationDate;
-                    note.ModoficationDate = DateTime.Today;
-                    db.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return note.ModoficationDate.Equals(DateTime.Today) ? true : false;
             }
         }
     }

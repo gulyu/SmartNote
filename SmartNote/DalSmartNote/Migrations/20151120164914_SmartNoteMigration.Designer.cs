@@ -8,7 +8,7 @@ using DalSmartNote;
 namespace DalSmartNote.Migrations
 {
     [DbContext(typeof(SQLiteContext))]
-    [Migration("20151107144327_SmartNoteMigration")]
+    [Migration("20151120164914_SmartNoteMigration")]
     partial class SmartNoteMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
