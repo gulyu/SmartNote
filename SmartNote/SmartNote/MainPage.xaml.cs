@@ -2,26 +2,15 @@
 using SmartNoteService.Entities;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -55,25 +44,6 @@ namespace SmartNote
         private void openSerachPane_Click(object sender, RoutedEventArgs e)
         {
             searchSplitView.IsPaneOpen = !searchSplitView.IsPaneOpen;
-        }
-
-        /// <summary>
-        /// Az oldal betöltődése után elsülő esemény kezelő függvénye.
-        /// Az adatbázis elment egy tényleges note objektumot, majd onnan kéri vissza.
-        /// </summary>
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            //Note n = new Note();
-            //n.CreationDate = DateTime.Today;
-            //n.ModoficationDate = DateTime.Today;
-            //n.Text = "BlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablablaBlablablablabla";
-            //n.Title = "BlaBla tétele";
-            //bool insertResult = smartNoteBll.InsertNote(n);
-            //if(insertResult)
-            //{
-                //this.noteList = smartNoteBll.GetAllNote(new User());
-            //}
-            //this.noteListView.ItemsSource = this.noteList;
         }
 
         private async void btnFilePicker_Click(object sender, RoutedEventArgs e)
@@ -193,6 +163,8 @@ namespace SmartNote
                     attachmentList.Add(attachment);
                 }
                 this.selectedNote.Attachments = attachmentList;
+                // Hogy az új notehoz ne adjuk hozzá az előzőleg feltöltött csatolmányokat
+                this.noteFileList = null;
             }
 
             this.selectedNote.ModoficationDate = DateTime.Now;
