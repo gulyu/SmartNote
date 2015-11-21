@@ -25,12 +25,14 @@ namespace SmartNote
         private List<Note> noteList;
         private List<StorageFile> noteFileList;
         private Note selectedNote;
+        private int sortBy;
 
         public MainPage()
         {
             this.InitializeComponent();
             this.smartNoteBll = new SmartNoteBll();
             this.noteList = new List<Note>();
+            this.sortBy = 0;
             // Some people said, that it can initialize the size of the screen, but i can't see any difference
             // with it, or without it :)
             Size size = new Size { Height = 600, Width = 800 };
@@ -139,7 +141,7 @@ namespace SmartNote
                 {
                     if (selectedPivotItem.TabIndex == 0)
                     {
-                        this.noteList = smartNoteBll.GetAllNote(new User());
+                        this.noteList = smartNoteBll.GetAllNote(new User(), this.sortBy);
                         this.noteListView.ItemsSource = this.noteList;
                     }    
                 }
@@ -244,7 +246,7 @@ namespace SmartNote
                 if (res)
                 {
                     this.selectedNote = null;
-                    this.noteList = smartNoteBll.GetAllNote(new User());
+                    this.noteList = smartNoteBll.GetAllNote(new User(), this.sortBy);
                     this.noteListView.ItemsSource = this.noteList;
                 }
             }
@@ -256,6 +258,17 @@ namespace SmartNote
             this.noteListView.ItemsSource = this.noteList;
 
             this.selectedNote = null;
+        }
+
+        private void sortNote_click(object sender, RoutedEventArgs e)
+        {
+            this.sortBy++;
+            if (this.sortBy == 3)
+            {
+                this.sortBy = 0;
+            }
+            this.noteList = smartNoteBll.GetAllNote(new User(), sortBy);
+            this.noteListView.ItemsSource = this.noteList;
         }
     }
 }

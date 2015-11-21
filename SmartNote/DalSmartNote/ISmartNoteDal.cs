@@ -9,7 +9,7 @@ namespace DalSmartNote
 {
     public interface ISmartNoteDal
     {
-        List<Note> GetAllNote(User input);
+        List<Note> GetAllNote(User input, int sortBy);
 
         bool InsertNote(Note input);
 

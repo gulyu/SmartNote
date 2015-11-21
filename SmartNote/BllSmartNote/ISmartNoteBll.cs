@@ -9,7 +9,7 @@ namespace BllSmartNote
 {
     public interface ISmartNoteBll
     {
-        List<Note> GetAllNote(User input);
+        List<Note> GetAllNote(User input, int sortBy);
 
         bool InsertNote(Note input);
 

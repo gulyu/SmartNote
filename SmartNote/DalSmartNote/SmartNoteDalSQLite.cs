@@ -43,11 +43,23 @@ namespace DalSmartNote
             }
         }
 
-        public List<Note> GetAllNote(User input)
+        public List<Note> GetAllNote(User input, int sortBy)
         {
             using (var db = new SQLiteContext())
             {
-                var notes = db.notes.ToList();
+                List<Note> notes = null;
+                switch(sortBy)
+                {
+                    case 0:
+                        notes = db.notes.OrderBy(n => n.Title).ToList();
+                        break;
+                    case 1:
+                        notes = db.notes.OrderBy(n => n.Id).ToList();
+                        break;
+                    case 2:
+                        notes = db.notes.OrderBy(n => n.ModoficationDate).ToList();
+                        break;
+                }
                 foreach (var item in notes)
                 {
                     item.Attachments = db.attachments.Where(a => a.Note.Id == item.Id).ToList();

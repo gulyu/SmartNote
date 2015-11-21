@@ -24,9 +24,9 @@ namespace BllSmartNote
             return smartNoteDal.DeleteNote(input);
         }
 
-        public List<Note> GetAllNote(User input)
+        public List<Note> GetAllNote(User input, int sortBy)
         {
-            return smartNoteDal.GetAllNote(input);
+            return smartNoteDal.GetAllNote(input, sortBy);
         }
 
         public void InitializeSQLiteDatabase()
@@ -52,7 +52,7 @@ namespace BllSmartNote
                                             bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority)
         {
             List<Note> ret = null;
-            List<Note> allNotes = GetAllNote(user);
+            List<Note> allNotes = GetAllNote(user, 0);
             Func<Note, bool> func = (n) => (
                                             //(n.Author.Id == user.Id) &&
                                             (byTitle.Value == true ? n.Title.Contains(title) : true) &&

@@ -14,7 +14,7 @@ namespace DalSmartNote
             throw new NotImplementedException();
         }
 
-        public List<Note> GetAllNote(User input)
+        public List<Note> GetAllNote(User input, int sortBy)
         {
             throw new NotImplementedException();
         }

@@ -41,6 +41,9 @@
                             <Button x:Name="deleteNote" HorizontalAlignment="Left" Width="50" Margin="10,84,0,0" VerticalAlignment="Top" Click="deleteNote_Click">
                                 <SymbolIcon Symbol="Delete"/>
                             </Button>
+                            <Button x:Name="sortNotes" HorizontalAlignment="Left" Width="50" Margin="10,121,0,0" VerticalAlignment="Top" Click="sortNote_click">
+                                <SymbolIcon Symbol="Sort"/>
+                            </Button>
                         </Grid>
                     </SplitView.Pane>
                     <SplitView.Content>
