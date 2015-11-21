@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SmartNoteService.Entities;
 using DalSmartNote;
 using Microsoft.Data.Entity;
+using System.Linq.Expressions;
 
 namespace BllSmartNote
 {
@@ -45,6 +46,28 @@ namespace BllSmartNote
         public bool UpdateNote(Note input)
         {
             return smartNoteDal.UpdateNote(input);
+        }
+
+        public List<Note> GetNotesByParams(User user, string title, DateTime? creatinDate, DateTime? modDate, int? priority, 
+                                            bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority)
+        {
+            List<Note> ret = null;
+            List<Note> allNotes = GetAllNote(user);
+            Func<Note, bool> func = (n) => (
+                                            //(n.Author.Id == user.Id) &&
+                                            (byTitle.Value == true ? n.Title.Contains(title) : true) &&
+                                            (hasfile.Value == true ? (n.Attachments != null && n.Attachments.Count > 0) : true) &&
+                                            (byCreationDate.Value == true ? n.CreationDate.Date <= creatinDate.Value.Date : true) &&
+                                            (byModifyDate.Value == true ? n.ModoficationDate.Date <= modDate.Value.Date : true) 
+                                            //&& (byPriority.Value == true ? (priority.HasValue && priority == n.Priority) : true)
+                                           );
+
+            if (allNotes != null)
+            {
+                ret = allNotes.Where(func).ToList();
+            }
+
+            return ret;
         }
     }
 }

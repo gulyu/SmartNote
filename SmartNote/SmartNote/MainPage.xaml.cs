@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -123,6 +124,7 @@ namespace SmartNote
                     this.piSzerkesztes.IsEnabled = true;
                     this.piOlvasas.IsEnabled = true;
 
+                    //Szerkesztés
                     this.smtcEditor.setText(selected.Text);
                     this.tbEditTitle.Text = selected.Title;
 
@@ -137,7 +139,15 @@ namespace SmartNote
                     }
 
                     this.tbPickedFiles.Text = fileNames;
-                    this.runReaderText.Text = selected.Text;
+
+
+                    //Olvasás
+                    this.tbReadTitle.Text = selected.Title;
+                    this.tbPickedFilesRead.Text = fileNames;
+
+                    this.rtbRead.IsReadOnly = false;
+                    this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, selected.Text);
+                    this.rtbRead.IsReadOnly = true;
                 }
                 else
                 {
@@ -235,11 +245,18 @@ namespace SmartNote
             //this.noteList.Add(newNote);
             this.selectedNote = newNote;
 
-            //Üresre inicializál itt most
+            //Üresre inicializál itt most, Szerkesztés
             this.smtcEditor.setText("");
             this.tbEditTitle.Text = "";
             this.tbPickedFiles.Text = "";
-            this.runReaderText.Text = "";
+
+            //Olvasás
+            this.tbReadTitle.Text = "";
+            this.tbPickedFilesRead.Text = "";
+
+            this.rtbRead.IsReadOnly = false;
+            this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, "");
+            this.rtbRead.IsReadOnly = true;
 
             this.piSzerkesztes.IsEnabled = true;
             this.piOlvasas.IsEnabled = true;
@@ -259,6 +276,14 @@ namespace SmartNote
                     this.noteListView.ItemsSource = this.noteList;
                 }
             }
+        }
+
+        private void search_Click(object sender, RoutedEventArgs e)
+        {
+            this.noteList = this.smartNoteBll.GetNotesByParams(new User(), this.title.Text, this.creationDate.Date.DateTime, this.modifyDate.Date.DateTime, (int?)this.priority.SelectedValue, this.hasFile.IsChecked, this.byTitle.IsChecked, this.byCreationDate.IsChecked, this.byModifyDate.IsChecked, this.byPriority.IsChecked);
+            this.noteListView.ItemsSource = this.noteList;
+
+            this.selectedNote = null;
         }
     }
 }

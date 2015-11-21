@@ -32,7 +32,7 @@
                             <CheckBox x:Name="byModifyDate" Content="módosítás dátuma alapján" HorizontalAlignment="Left" Margin="70,290,0,0" VerticalAlignment="Top" Width="211"/>
                             <CheckBox x:Name="byPriority" Content="prioritás alapján" HorizontalAlignment="Left" Margin="281,290,-3,0" VerticalAlignment="Top" Width="147"/>
                             <CheckBox x:Name="byTitle" Content="cím alapján" HorizontalAlignment="Left" Margin="281,322,0,0" VerticalAlignment="Top" Width="54"/>
-                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,379,0,0"/>
+                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,379,0,0" Click="search_Click"/>
                             <Button x:Name="openSerachPane" HorizontalAlignment="Left" Width="50" Margin="10,10,0,0" VerticalAlignment="Top" Click="openSerachPane_Click">
                                 <SymbolIcon Symbol="Find"/>
                             </Button>
@@ -96,11 +96,16 @@
             </PivotItem>
             <PivotItem Header="Olvasás" Name="piOlvasas" TabIndex="2" IsEnabled="False">
                 <Grid>
-                    <RichTextBlock Name="rtbRead" Height="605" Margin="10,10,0,0" Width="1236" Padding="10" ScrollViewer.VerticalScrollMode="Auto">
-                        <Paragraph>
-                            <Run x:Name="runReaderText"/>
-                        </Paragraph>
-                    </RichTextBlock>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Name="tbReadTitle"></TextBlock>
+                    <RichEditBox Grid.Row="1" Name="rtbRead" AcceptsReturn="True" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="12" ScrollViewer.VerticalScrollMode="Auto"/>
+                    <ScrollViewer Grid.Row="2">
+                        <TextBlock x:Name="tbPickedFilesRead"/>
+                    </ScrollViewer>
                 </Grid>
             </PivotItem>
         </Pivot>
