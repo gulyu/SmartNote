@@ -13,7 +13,7 @@ namespace DalSmartNote.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964");
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
             modelBuilder.Entity("SmartNoteService.Entities.Attachment", b =>
                 {
@@ -44,6 +44,8 @@ namespace DalSmartNote.Migrations
 
                     b.Property<DateTime>("ModoficationDate");
 
+                    b.Property<int>("Priority");
+
                     b.Property<string>("Text");
 
                     b.Property<string>("Title");
@@ -69,14 +71,14 @@ namespace DalSmartNote.Migrations
                 {
                     b.HasOne("SmartNoteService.Entities.Note")
                         .WithMany()
-                        .ForeignKey("NoteId");
+                        .HasForeignKey("NoteId");
                 });
 
             modelBuilder.Entity("SmartNoteService.Entities.Note", b =>
                 {
                     b.HasOne("SmartNoteService.Entities.User")
                         .WithMany()
-                        .ForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId");
                 });
         }
     }

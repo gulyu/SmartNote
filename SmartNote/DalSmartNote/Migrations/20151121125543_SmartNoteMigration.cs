@@ -31,6 +31,7 @@ namespace DalSmartNote.Migrations
                     AuthorId = table.Column<int>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     ModoficationDate = table.Column<DateTime>(nullable: false),
+                    Priority = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
                 },
@@ -41,7 +42,8 @@ namespace DalSmartNote.Migrations
                         name: "FK_Note_User_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
                 name: "Attachment",
@@ -62,7 +64,8 @@ namespace DalSmartNote.Migrations
                         name: "FK_Attachment_Note_NoteId",
                         column: x => x.NoteId,
                         principalTable: "Note",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
         }
 

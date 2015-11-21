@@ -1,11 +1,8 @@
 ﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Metadata;
 using SmartNoteService.Entities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace DalSmartNote
@@ -32,8 +29,7 @@ namespace DalSmartNote
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Itt lehet megadni a kötelező attribútumokat...
-            //modelBuilder.Entity<Note>().Property(b => b.Id).IsRequired();
+            modelBuilder.Entity<Note>().HasMany(n => n.Attachments).WithOne("Note").OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

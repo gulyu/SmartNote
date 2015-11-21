@@ -7,14 +7,31 @@ namespace DalSmartNote
 {
     public class SmartNoteDalSQLite : ISmartNoteDal
     {
-        public bool DeleteNote(Note input)
+        private Note getNote(Note input)
         {
-            using(var db = new SQLiteContext())
+            using (var db = new SQLiteContext())
             {
                 Note note = db.notes.Where(n => n.Id == input.Id).FirstOrDefault();
                 if(note != null)
                 {
-                    db.Remove(input);
+                    note.Attachments = db.attachments.Where(a => a.Note.Id == note.Id).ToList();
+                    return note;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool DeleteNote(Note input)
+        {
+            using(var db = new SQLiteContext())
+            {
+                Note note = getNote(input);
+                if(note != null)
+                {
+                    db.notes.Remove(note);
                     db.SaveChanges();
                     // Ha törlés után megtalálom a listában, akkor nem sikerült a törlés.
                     return db.notes.Where(n => n.Id == input.Id).FirstOrDefault() == null ? true : false;
@@ -30,7 +47,12 @@ namespace DalSmartNote
         {
             using (var db = new SQLiteContext())
             {
-                return db.notes.ToList();
+                var notes = db.notes.ToList();
+                foreach (var item in notes)
+                {
+                    item.Attachments = db.attachments.Where(a => a.Note.Id == item.Id).ToList();
+                }
+                return notes;
             }
         }
 
@@ -52,7 +74,7 @@ namespace DalSmartNote
                 db.Update(input);
                 db.SaveChanges();
 
-                Note note = db.notes.Where(n => n.Id == input.Id).FirstOrDefault();
+                Note note = getNote(input);
                 return note.ModoficationDate.Equals(DateTime.Today) ? true : false;
             }
         }

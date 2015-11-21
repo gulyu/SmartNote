@@ -108,9 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISmartNoteDal.cs" />
-    <Compile Include="Migrations\20151120164914_SmartNoteMigration.cs" />
-    <Compile Include="Migrations\20151120164914_SmartNoteMigration.designer.cs">
-      <DependentUpon>20151120164914_SmartNoteMigration.cs</DependentUpon>
+    <Compile Include="Migrations\20151121125543_SmartNoteMigration.cs" />
+    <Compile Include="Migrations\20151121125543_SmartNoteMigration.designer.cs">
+      <DependentUpon>20151121125543_SmartNoteMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\SQLiteContextModelSnapshot.cs" />
     <Compile Include="SmartNoteDal.cs" />
