@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -111,7 +112,7 @@ namespace SmartNote
                     }
 
                     this.tbPickedFiles.Text = fileNames;
-
+                    this.cbPriority.SelectedIndex = selected.Priority;
 
                     //Olvasás
                     this.tbReadTitle.Text = selected.Title;
@@ -174,6 +175,21 @@ namespace SmartNote
             this.selectedNote.PlainText = this.smtcEditor.getPlainText();
             this.selectedNote.Title = this.tbEditTitle.Text;
 
+            int priority;
+            if (((ComboBoxItem)this.cbPriority.SelectedValue).Content.ToString() == "Magas")
+            {
+                priority = 0;
+            }
+            else if (((ComboBoxItem)this.cbPriority.SelectedValue).Content.ToString() == "Közepes")
+            {
+                priority = 1;
+            }
+            else
+            {
+                priority = 2;
+            }
+            this.selectedNote.Priority = priority;
+
             bool res;
             if (this.selectedNote.Id == 0)
             {
@@ -190,7 +206,8 @@ namespace SmartNote
             }
             else
             {
-                //Hibaüzenet
+                MessageDialog msg = new MessageDialog("Hiba történt a mentés során!");
+                await msg.ShowAsync();
             }
         }
 
@@ -255,7 +272,21 @@ namespace SmartNote
 
         private void search_Click(object sender, RoutedEventArgs e)
         {
-            this.noteList = this.smartNoteBll.GetNotesByParams(new User(), this.title.Text, this.content.Text, this.creationDate.Date.DateTime, this.modifyDate.Date.DateTime, (int?)this.priority.SelectedValue, this.hasFile.IsChecked, this.byTitle.IsChecked, this.byCreationDate.IsChecked, this.byModifyDate.IsChecked, this.byPriority.IsChecked, this.byContent.IsChecked);
+            int priority;
+            if (((ComboBoxItem)this.priority.SelectedValue).Content.ToString() == "Magas")
+            {
+                priority = 0;
+            }
+            else if (((ComboBoxItem)this.priority.SelectedValue).Content.ToString() == "Közepes")
+            {
+                priority = 1;
+            }
+            else
+            {
+                priority = 2;
+            }
+
+            this.noteList = this.smartNoteBll.GetNotesByParams(new User(), this.title.Text, this.content.Text, this.creationDate.Date.DateTime, this.modifyDate.Date.DateTime, priority, this.hasFile.IsChecked, this.byTitle.IsChecked, this.byCreationDate.IsChecked, this.byModifyDate.IsChecked, this.byPriority.IsChecked, this.byContent.IsChecked);
             this.noteListView.ItemsSource = this.noteList;
 
             this.selectedNote = null;

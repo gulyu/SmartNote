@@ -87,7 +87,7 @@ namespace DalSmartNote
                 db.SaveChanges();
 
                 Note note = getNote(input);
-                return note.ModoficationDate.Equals(DateTime.Today) ? true : false;
+                return note.ModoficationDate.Date.Equals(DateTime.Today.Date) ? true : false;
             }
         }
     }
