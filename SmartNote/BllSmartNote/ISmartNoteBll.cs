@@ -19,7 +19,7 @@ namespace BllSmartNote
 
         void InitializeSQLiteDatabase();
 
-        List<Note> GetNotesByParams(User user, string title, DateTime? creatinDate, DateTime? modDate, int? priority,
-                                    bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority);
+        List<Note> GetNotesByParams(User user, string title, string content, DateTime? creatinDate, DateTime? modDate, int? priority,
+                                    bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority, bool? byContent);
     }
 }

@@ -27,5 +27,7 @@ namespace SmartNoteService.Entities
         public ICollection<Attachment> Attachments { get; set; }
         [DataMember]
         public int Priority { get; set; }
+        [DataMember]
+        public string PlainText { get; set; }
     }
 }

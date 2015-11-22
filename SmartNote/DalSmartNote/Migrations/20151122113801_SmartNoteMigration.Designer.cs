@@ -8,7 +8,7 @@ using DalSmartNote;
 namespace DalSmartNote.Migrations
 {
     [DbContext(typeof(SQLiteContext))]
-    [Migration("20151121125543_SmartNoteMigration")]
+    [Migration("20151122113801_SmartNoteMigration")]
     partial class SmartNoteMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,8 @@ namespace DalSmartNote.Migrations
                     b.Property<DateTime>("CreationDate");
 
                     b.Property<DateTime>("ModoficationDate");
+
+                    b.Property<string>("PlainText");
 
                     b.Property<int>("Priority");
 

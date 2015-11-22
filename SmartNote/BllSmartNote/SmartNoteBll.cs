@@ -7,6 +7,8 @@ using SmartNoteService.Entities;
 using DalSmartNote;
 using Microsoft.Data.Entity;
 using System.Linq.Expressions;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Text;
 
 namespace BllSmartNote
 {
@@ -48,8 +50,8 @@ namespace BllSmartNote
             return smartNoteDal.UpdateNote(input);
         }
 
-        public List<Note> GetNotesByParams(User user, string title, DateTime? creatinDate, DateTime? modDate, int? priority, 
-                                            bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority)
+        public List<Note> GetNotesByParams(User user, string title, string content, DateTime? creatinDate, DateTime? modDate, int? priority, 
+                                            bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority, bool? byContent)
         {
             List<Note> ret = null;
             List<Note> allNotes = GetAllNote(user, 0);
@@ -57,9 +59,10 @@ namespace BllSmartNote
                                             //(n.Author.Id == user.Id) &&
                                             (byTitle.Value == true ? n.Title.Contains(title) : true) &&
                                             (hasfile.Value == true ? (n.Attachments != null && n.Attachments.Count > 0) : true) &&
-                                            (byCreationDate.Value == true ? n.CreationDate.Date <= creatinDate.Value.Date : true) &&
-                                            (byModifyDate.Value == true ? n.ModoficationDate.Date <= modDate.Value.Date : true) 
-                                            //&& (byPriority.Value == true ? (priority.HasValue && priority == n.Priority) : true)
+                                            (byCreationDate.Value == true ? n.CreationDate.Date == creatinDate.Value.Date : true) &&
+                                            (byModifyDate.Value == true ? n.ModoficationDate.Date == modDate.Value.Date : true) &&
+                                            (byPriority.Value == true ? (priority.HasValue && priority == n.Priority) : true) &&
+                                            (byContent.Value == true ? n.PlainText.Contains(content) : true)
                                            );
 
             if (allNotes != null)

@@ -171,6 +171,7 @@ namespace SmartNote
 
             this.selectedNote.ModoficationDate = DateTime.Now;
             this.selectedNote.Text = this.smtcEditor.getText();
+            this.selectedNote.PlainText = this.smtcEditor.getPlainText();
             this.selectedNote.Title = this.tbEditTitle.Text;
 
             bool res;
@@ -254,7 +255,7 @@ namespace SmartNote
 
         private void search_Click(object sender, RoutedEventArgs e)
         {
-            this.noteList = this.smartNoteBll.GetNotesByParams(new User(), this.title.Text, this.creationDate.Date.DateTime, this.modifyDate.Date.DateTime, (int?)this.priority.SelectedValue, this.hasFile.IsChecked, this.byTitle.IsChecked, this.byCreationDate.IsChecked, this.byModifyDate.IsChecked, this.byPriority.IsChecked);
+            this.noteList = this.smartNoteBll.GetNotesByParams(new User(), this.title.Text, this.content.Text, this.creationDate.Date.DateTime, this.modifyDate.Date.DateTime, (int?)this.priority.SelectedValue, this.hasFile.IsChecked, this.byTitle.IsChecked, this.byCreationDate.IsChecked, this.byModifyDate.IsChecked, this.byPriority.IsChecked, this.byContent.IsChecked);
             this.noteListView.ItemsSource = this.noteList;
 
             this.selectedNote = null;

@@ -19,19 +19,23 @@
                         <Grid>
                             <TextBlock x:Name="titleTextBlock" HorizontalAlignment="Left" Margin="70,10,0,0" TextWrapping="Wrap" Text="Cím" VerticalAlignment="Top"/>
                             <TextBox x:Name="title" HorizontalAlignment="Left" Height="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Margin="70,30,0,0"/>
-                            <TextBlock x:Name="creationDateTextBlock" HorizontalAlignment="Left" Margin="70,67,0,0" TextWrapping="Wrap" Text="Létrehozás dátuma" VerticalAlignment="Top"/>
-                            <DatePicker x:Name="creationDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,87,0,0"/>
-                            <TextBlock x:Name="modifyDateTextBlock" HorizontalAlignment="Left" Margin="70,124,0,0" TextWrapping="Wrap" Text="Módosítás dátuma" VerticalAlignment="Top"/>
-                            <DatePicker x:Name="modifyDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,144,0,0"/>
-                            <TextBlock x:Name="priorityTextBlock" HorizontalAlignment="Left" Margin="70,181,0,0" TextWrapping="Wrap" Text="Prioritás" VerticalAlignment="Top"/>
-                            <ComboBox x:Name="priority" HorizontalAlignment="Left" Margin="70,201,0,0" VerticalAlignment="Top" Width="340"/>
-                            <CheckBox x:Name="hasFile" Content="Tartozik hozzá fájl" HorizontalAlignment="Left" Margin="70,238,0,0" VerticalAlignment="Top" Width="340"/>
-                            <TextBlock x:Name="searchBy" HorizontalAlignment="Left" Margin="70,275,0,0" TextWrapping="Wrap" Text="Keresés ..." VerticalAlignment="Top"/>
-                            <CheckBox x:Name="byCreationDate" Content="létrehozás dátuma alapján" HorizontalAlignment="Left" Margin="70,322,0,0" VerticalAlignment="Top" Width="203"/>
-                            <CheckBox x:Name="byModifyDate" Content="módosítás dátuma alapján" HorizontalAlignment="Left" Margin="70,290,0,0" VerticalAlignment="Top" Width="211"/>
-                            <CheckBox x:Name="byPriority" Content="prioritás alapján" HorizontalAlignment="Left" Margin="281,290,-3,0" VerticalAlignment="Top" Width="147"/>
-                            <CheckBox x:Name="byTitle" Content="cím alapján" HorizontalAlignment="Left" Margin="281,322,0,0" VerticalAlignment="Top" Width="54"/>
-                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,379,0,0" Click="search_Click"/>
+                            <TextBlock x:Name="contentTextBlock" HorizontalAlignment="Left" Margin="70,67,0,0" TextWrapping="Wrap" Text="Szöveg" VerticalAlignment="Top"/>
+                            <TextBox x:Name="content" HorizontalAlignment="Left" Height="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Margin="70,87,0,0"/>
+                            <TextBlock x:Name="creationDateTextBlock" HorizontalAlignment="Left" Margin="70,124,0,0" TextWrapping="Wrap" Text="Létrehozás dátuma" VerticalAlignment="Top"/>
+                            <DatePicker x:Name="creationDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,144,0,0"/>
+                            <TextBlock x:Name="modifyDateTextBlock" HorizontalAlignment="Left" Margin="70,181,0,0" TextWrapping="Wrap" Text="Módosítás dátuma" VerticalAlignment="Top"/>
+                            <DatePicker x:Name="modifyDate" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="340" Margin="70,201,0,0"/>
+                            <TextBlock x:Name="priorityTextBlock" HorizontalAlignment="Left" Margin="70,238,0,0" TextWrapping="Wrap" Text="Prioritás" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="priority" HorizontalAlignment="Left" Margin="70,258,0,0" VerticalAlignment="Top" Width="340"/>
+                            <CheckBox x:Name="hasFile" Content="Tartozik hozzá fájl" HorizontalAlignment="Left" Margin="70,288,0,0" VerticalAlignment="Top" Width="340"/>
+                            <TextBlock x:Name="searchBy" HorizontalAlignment="Left" Margin="70,320,0,0" TextWrapping="Wrap" Text="Keresés ..." VerticalAlignment="Top"/>
+                            <CheckBox x:Name="byCreationDate" Content="létrehozás dátuma" HorizontalAlignment="Left" Margin="70,340,0,0" VerticalAlignment="Top" Width="203"/>
+                            <CheckBox x:Name="byModifyDate" Content="módosítás dátuma" HorizontalAlignment="Left" Margin="70,365,0,0" VerticalAlignment="Top" Width="211"/>
+                            <CheckBox x:Name="byPriority" Content="prioritás" HorizontalAlignment="Left" Margin="281,340,-3,0" VerticalAlignment="Top" Width="147"/>
+                            <CheckBox x:Name="byTitle" Content="cím" HorizontalAlignment="Left" Margin="281,365,-3,0" VerticalAlignment="Top" Width="54"/>
+                            <CheckBox x:Name="byContent" Content="szöveg" HorizontalAlignment="Left" Margin="70,390,0,0" VerticalAlignment="Top" Width="54"/>
+                            <TextBlock x:Name="searchByEnd" HorizontalAlignment="Left" Margin="281,395,0,0" TextWrapping="Wrap" Text="... alapján" VerticalAlignment="Top"/>
+                            <Button x:Name="search" Content="Keresés" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="340" Margin="70,450,0,0" Click="search_Click"/>
                             <Button x:Name="openSerachPane" HorizontalAlignment="Left" Width="50" Margin="10,10,0,0" VerticalAlignment="Top" Click="openSerachPane_Click">
                                 <SymbolIcon Symbol="Find"/>
                             </Button>

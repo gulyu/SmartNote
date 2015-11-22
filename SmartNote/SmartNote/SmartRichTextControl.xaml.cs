@@ -106,6 +106,13 @@ namespace SmartNote
             return value;
         }
 
+        public string getPlainText()
+        {
+            string value = string.Empty;
+            this.rtbEditor.Document.GetText(TextGetOptions.None, out value);
+            return value;
+        }
+
         private bool Bold()
         {
             this.rtbEditor.Document.Selection.CharacterFormat.Bold = FormatEffect.Toggle;

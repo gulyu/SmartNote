@@ -44,6 +44,8 @@ namespace DalSmartNote.Migrations
 
                     b.Property<DateTime>("ModoficationDate");
 
+                    b.Property<string>("PlainText");
+
                     b.Property<int>("Priority");
 
                     b.Property<string>("Text");

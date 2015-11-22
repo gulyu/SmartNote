@@ -214,3 +214,6 @@ ModelManifest.xml
 SmartNote/.vs/SmartNote/v14/.suo
 SmartNote/BllSmartNote/BllSmartNote.nuget.props
 SmartNote/SmartNote/SmartNote.nuget.props
+*.props
+*.targets
+SmartNote/.vs/SmartNote/v14/.suo
