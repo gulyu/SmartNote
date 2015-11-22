@@ -18,7 +18,7 @@ namespace SmartNote
             //    return value;
 
             string ret;
-            if ((int)value == 2)
+            if ((int)value == 0)
             {
                 ret = "Magas";
             }
