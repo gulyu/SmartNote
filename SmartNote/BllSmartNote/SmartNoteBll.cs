@@ -9,6 +9,8 @@ using Microsoft.Data.Entity;
 using System.Linq.Expressions;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Text;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace BllSmartNote
 {
@@ -71,6 +73,28 @@ namespace BllSmartNote
             }
 
             return ret;
+        }
+
+        public async void OpenInAnotherApp(byte[] data, string filename)
+        {
+            StorageFile file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+
+            using (IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                using (IOutputStream outputStream = fileStream.GetOutputStreamAt(0))
+                {
+                    using (DataWriter dataWriter = new DataWriter(outputStream))
+                    {
+                        dataWriter.WriteBytes(data);
+                        await dataWriter.StoreAsync(); // 
+                        dataWriter.DetachStream();
+                    }
+                    await outputStream.FlushAsync();
+                }
+                await fileStream.FlushAsync();
+            }
+
+            await Windows.System.Launcher.LaunchFileAsync(file);
         }
     }
 }

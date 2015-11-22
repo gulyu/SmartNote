@@ -21,5 +21,7 @@ namespace BllSmartNote
 
         List<Note> GetNotesByParams(User user, string title, string content, DateTime? creatinDate, DateTime? modDate, int? priority,
                                     bool? hasfile, bool? byTitle, bool? byCreationDate, bool? byModifyDate, bool? byPriority, bool? byContent);
+
+        void OpenInAnotherApp(byte[] data, string filename);
     }
 }

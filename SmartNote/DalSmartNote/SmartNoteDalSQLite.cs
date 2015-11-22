@@ -54,7 +54,7 @@ namespace DalSmartNote
                         notes = db.notes.OrderBy(n => n.Title).ToList();
                         break;
                     case 1:
-                        notes = db.notes.OrderBy(n => n.Id).ToList();
+                        notes = db.notes.OrderByDescending(n => n.Priority).ToList();
                         break;
                     case 2:
                         notes = db.notes.OrderBy(n => n.ModoficationDate).ToList();

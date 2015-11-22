@@ -116,7 +116,16 @@ namespace SmartNote
 
                     //Olvasás
                     this.tbReadTitle.Text = selected.Title;
-                    this.tbPickedFilesRead.Text = fileNames;
+
+                    if (selected.Attachments != null && selected.Attachments.Count > 0)
+                    {
+                        this.attachmentListView.ItemsSource = this.selectedNote.Attachments;
+                    }
+                    else
+                    {
+                        this.attachmentListView.ItemsSource = null;
+                    }
+
 
                     this.rtbRead.IsReadOnly = false;
                     this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, selected.Text);
@@ -144,7 +153,7 @@ namespace SmartNote
                     {
                         this.noteList = smartNoteBll.GetAllNote(new User(), this.sortBy);
                         this.noteListView.ItemsSource = this.noteList;
-                    }    
+                    }
                 }
             }
         }
@@ -244,7 +253,7 @@ namespace SmartNote
 
             //Olvasás
             this.tbReadTitle.Text = "";
-            this.tbPickedFilesRead.Text = "";
+            this.attachmentListView.ItemsSource = null;
 
             this.rtbRead.IsReadOnly = false;
             this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, "");
@@ -301,6 +310,23 @@ namespace SmartNote
             }
             this.noteList = smartNoteBll.GetAllNote(new User(), sortBy);
             this.noteListView.ItemsSource = this.noteList;
+        }
+
+        
+
+        private void attachmentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView attachmentListView = sender as ListView;
+
+            if (attachmentListView != null)
+            {
+                Attachment selected = attachmentListView.SelectedItem as Attachment;
+
+                if (selected != null)
+                {
+                    this.smartNoteBll.OpenInAnotherApp(selected.Content, selected.Name);
+                }
+            }
         }
     }
 }
