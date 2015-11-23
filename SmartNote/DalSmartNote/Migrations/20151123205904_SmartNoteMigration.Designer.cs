@@ -8,13 +8,26 @@ using DalSmartNote;
 namespace DalSmartNote.Migrations
 {
     [DbContext(typeof(SQLiteContext))]
-    [Migration("20151122113801_SmartNoteMigration")]
+    [Migration("20151123205904_SmartNoteMigration")]
     partial class SmartNoteMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
+
+            modelBuilder.Entity("Entities.NoteToNote", b =>
+                {
+                    b.Property<int>("OriginalNoteId");
+
+                    b.Property<int>("ReferenceNoteId");
+
+                    b.Property<int?>("OriginalNoteId1");
+
+                    b.Property<int?>("ReferenceNoteId1");
+
+                    b.HasKey("OriginalNoteId", "ReferenceNoteId");
+                });
 
             modelBuilder.Entity("SmartNoteService.Entities.Attachment", b =>
                 {
@@ -68,6 +81,17 @@ namespace DalSmartNote.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Entities.NoteToNote", b =>
+                {
+                    b.HasOne("SmartNoteService.Entities.Note")
+                        .WithMany()
+                        .HasForeignKey("OriginalNoteId1");
+
+                    b.HasOne("SmartNoteService.Entities.Note")
+                        .WithOne()
+                        .HasForeignKey("Entities.NoteToNote", "ReferenceNoteId1");
                 });
 
             modelBuilder.Entity("SmartNoteService.Entities.Attachment", b =>

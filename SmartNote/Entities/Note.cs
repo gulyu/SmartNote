@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -21,13 +22,16 @@ namespace SmartNoteService.Entities
         [DataMember]
         public DateTime ModoficationDate { get; set; }
         [DataMember]
-        [NotMapped]
-        public Dictionary<Guid, int> Links { get; set; }
+        public ICollection<NoteToNote> Links { get; set; }
         [DataMember]
         public ICollection<Attachment> Attachments { get; set; }
         [DataMember]
         public int Priority { get; set; }
         [DataMember]
         public string PlainText { get; set; }
+        [DataMember]
+        public NoteToNote NoteToNoteNavigation { get; set; }
+        [NotMapped]
+        public bool Checked { get; set; }
     }
 }

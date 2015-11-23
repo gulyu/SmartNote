@@ -22,7 +22,13 @@
             <AppBarToggleButton Name="tgbLeft" Icon="AlignLeft" Label="AlignLeft" Click="tgbLeft_Click"/>
             <AppBarToggleButton Name="tgbCentre" Icon="AlignCenter" Label="AlignCentre" Click="tgbCentre_Click"/>
             <AppBarToggleButton Name="tgbRight" Icon="AlignRight" Label="AlignRight" Click="tgbRight_Click"/>
-            <AppBarToggleButton Name="tgbLink" Icon="Link" Label="Link" Click="tgbLink_Click"/>
+            <ComboBox x:Name="cbLinks" VerticalAlignment="Center" Margin="10">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Title}" IsChecked="{Binding Checked}" Tag="{Binding Id}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <ComboBox Name="cbColour" VerticalAlignment="Center" SelectionChanged="cbColour_SelectionChanged">
                 <ComboBoxItem Tag="FF000000" IsSelected="True">
                     <Rectangle Width="25" Height="14" Fill="Black"/>

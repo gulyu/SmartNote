@@ -11,10 +11,10 @@ namespace DalSmartNote
         {
             using (var db = new SQLiteContext())
             {
-                Note note = db.notes.Where(n => n.Id == input.Id).FirstOrDefault();
+                Note note = db.Notes.Where(n => n.Id == input.Id).FirstOrDefault();
                 if(note != null)
                 {
-                    note.Attachments = db.attachments.Where(a => a.Note.Id == note.Id).ToList();
+                    note.Attachments = db.Attachments.Where(a => a.Note.Id == note.Id).ToList();
                     return note;
                 }
                 else
@@ -31,10 +31,10 @@ namespace DalSmartNote
                 Note note = getNote(input);
                 if(note != null)
                 {
-                    db.notes.Remove(note);
+                    db.Notes.Remove(note);
                     db.SaveChanges();
                     // Ha törlés után megtalálom a listában, akkor nem sikerült a törlés.
-                    return db.notes.Where(n => n.Id == input.Id).FirstOrDefault() == null ? true : false;
+                    return db.Notes.Where(n => n.Id == input.Id).FirstOrDefault() == null ? true : false;
                 }
                 else
                 {
@@ -51,19 +51,25 @@ namespace DalSmartNote
                 switch(sortBy)
                 {
                     case 0:
-                        notes = db.notes.OrderBy(n => n.Title).ToList();
+                        notes = db.Notes.OrderBy(n => n.Title).ToList();
                         break;
                     case 1:
-                        notes = db.notes.OrderByDescending(n => n.Priority).ToList();
+                        notes = db.Notes.OrderByDescending(n => n.Priority).ToList();
                         break;
                     case 2:
-                        notes = db.notes.OrderBy(n => n.ModoficationDate).ToList();
+                        notes = db.Notes.OrderBy(n => n.ModoficationDate).ToList();
                         break;
                 }
                 foreach (var item in notes)
                 {
-                    item.Attachments = db.attachments.Where(a => a.Note.Id == item.Id).ToList();
+                    item.Attachments = db.Attachments.Where(a => a.Note.Id == item.Id).ToList();
+                    item.Links = db.NoteToNote.Where(n => n.OriginalNote.Id == item.Id).ToList();
+                    foreach (var n in item.Links)
+                    {
+                        var p = n.ReferenceNote.Title;
+                    }
                 }
+                
                 return notes;
             }
         }
@@ -72,10 +78,10 @@ namespace DalSmartNote
         {
             using (var db = new SQLiteContext())
             {
-                db.notes.Add(input);
+                db.Notes.Add(input);
                 db.SaveChanges();
 
-                return db.notes.Where(n => n.Id == input.Id).FirstOrDefault() == null ? false : true;
+                return db.Notes.Where(n => n.Id == input.Id).FirstOrDefault() == null ? false : true;
             }
         }
 
@@ -83,7 +89,11 @@ namespace DalSmartNote
         {
             using (var db = new SQLiteContext())
             {
-                db.Update(input);
+                foreach (var item in input.Links)
+                {
+                    db.NoteToNote.Add(item);
+                }
+                db.Notes.Update(input);
                 db.SaveChanges();
 
                 Note note = getNote(input);

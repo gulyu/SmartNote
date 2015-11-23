@@ -134,21 +134,59 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="8*"/>
                         <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Name="tbReadTitle"></TextBlock>
                     <RichEditBox Grid.Row="1" Name="rtbRead" AcceptsReturn="True" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="12" ScrollViewer.VerticalScrollMode="Auto"/>
-                    <ListView Grid.Row="2" Name="attachmentListView" Margin="10" SelectionChanged="attachmentListView_SelectionChanged">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Row="0" Grid.Column="0" Name="attachmentListView" Margin="10" SelectionChanged="attachmentListView_SelectionChanged">
+                            <ListView.Header>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="220"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Name}" Padding="10" TextWrapping="Wrap"/>
+                                    <TextBlock Grid.Column="0" Text="Kapcsolódó dokumentumok" Padding="25,0,0,0"/>
                                 </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Padding="10" TextWrapping="Wrap"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <ListView Grid.Row="0" Grid.Column="1" Name="noteLinkListView" Margin="10" SelectionChanged="noteLinkListView_SelectionChanged">
+                            <ListView.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Kapcsolódó jegyzetek" Padding="25,0,0,0"/>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding ReferenceNote.Title}" Padding="10" TextWrapping="Wrap"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
                 </Grid>
             </PivotItem>
         </Pivot>

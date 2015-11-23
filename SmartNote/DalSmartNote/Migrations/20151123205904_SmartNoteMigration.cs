@@ -47,6 +47,31 @@ namespace DalSmartNote.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
+                name: "NoteToNote",
+                columns: table => new
+                {
+                    OriginalNoteId = table.Column<int>(nullable: false),
+                    ReferenceNoteId = table.Column<int>(nullable: false),
+                    OriginalNoteId1 = table.Column<int>(nullable: true),
+                    ReferenceNoteId1 = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteToNote", x => new { x.OriginalNoteId, x.ReferenceNoteId });
+                    table.ForeignKey(
+                        name: "FK_NoteToNote_Note_OriginalNoteId1",
+                        column: x => x.OriginalNoteId1,
+                        principalTable: "Note",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NoteToNote_Note_ReferenceNoteId1",
+                        column: x => x.ReferenceNoteId1,
+                        principalTable: "Note",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+            migrationBuilder.CreateTable(
                 name: "Attachment",
                 columns: table => new
                 {
@@ -72,6 +97,7 @@ namespace DalSmartNote.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable("NoteToNote");
             migrationBuilder.DropTable("Attachment");
             migrationBuilder.DropTable("Note");
             migrationBuilder.DropTable("User");

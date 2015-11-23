@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Entity;
+﻿using Entities;
+using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using SmartNoteService.Entities;
 using System;
@@ -9,9 +10,10 @@ namespace DalSmartNote
 {
     public class SQLiteContext : DbContext
     {
-        public DbSet<Note> notes { get; set; }
-        public DbSet<User> users { get; set; }
-        public DbSet<Attachment> attachments { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<NoteToNote> NoteToNote { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +32,9 @@ namespace DalSmartNote
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Note>().HasMany(n => n.Attachments).WithOne("Note").OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Note>().HasMany(n => n.Links).WithOne("OriginalNote").OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<NoteToNote>().HasOne(n => n.ReferenceNote).WithOne("NoteToNoteNavigation").OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<NoteToNote>().HasKey(n => new { n.OriginalNoteId, n.ReferenceNoteId });
         }
     }
 }

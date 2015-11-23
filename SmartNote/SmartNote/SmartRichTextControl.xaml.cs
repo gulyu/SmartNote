@@ -1,20 +1,12 @@
-﻿using System;
+﻿using Entities;
+using SmartNoteService.Entities;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -22,9 +14,13 @@ namespace SmartNote
 {
     public sealed partial class SmartRichTextControl : UserControl
     {
+        private Dictionary<int, NoteToNote> LinksList;
+        private Note OriginalNote;
+        private List<Note> NoteList;
         public SmartRichTextControl()
         {
             this.InitializeComponent();
+            this.LinksList = new Dictionary<int, NoteToNote>();
         }
 
         private void tgbBold_Click(object sender, RoutedEventArgs e)
@@ -155,9 +151,83 @@ namespace SmartNote
             return this.rtbEditor.Document.Selection.ParagraphFormat.Alignment.Equals(ParagraphAlignment.Right);
         }
 
-        private void tgbLink_Click(object sender, RoutedEventArgs e)
+        public void setNoteLinksAndOriginalNote(List<Note> notes, Note originalNote)
         {
-            //TODO: link kezelés
+            this.NoteList = notes;
+            this.OriginalNote = originalNote;
+            this.cbLinks.ItemsSource = this.NoteList;
+            this.LinksList = new Dictionary<int, NoteToNote>();
+            if(originalNote != null)
+            {
+                foreach (var item in originalNote.Links)
+                {
+                    this.LinksList.Add(item.ReferenceNoteId, item);
+                    foreach (var note in this.NoteList)
+                    {
+                        if(item.ReferenceNoteId == note.Id)
+                        {
+                            note.Checked = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        public Dictionary<int, NoteToNote> getLinkList()
+        {
+            Dictionary<int, NoteToNote> result = new Dictionary<int, NoteToNote>();
+            bool needToAdd = true;
+            foreach (var newItems in this.LinksList)
+            {
+                needToAdd = true;
+                foreach (var item in OriginalNote.Links)
+                {
+                    if(item.ReferenceNoteId == newItems.Value.ReferenceNoteId)
+                    {
+                        needToAdd = false;
+                        break;
+                    }
+                }
+                if(needToAdd)
+                {
+                    result.Add(newItems.Key, newItems.Value);
+                }
+            }
+            return result;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var cb = (CheckBox)sender;
+            if(cb != null && cb.Tag != null)
+            {
+                var noteId = Int32.Parse(cb.Tag.ToString());
+                Note referenceNote = null;
+                foreach (var item in this.NoteList)
+                {
+                    if (item.Id == noteId)
+                    {
+                        referenceNote = item;
+                        break;
+                    }
+                }
+
+                NoteToNote n = new NoteToNote
+                {
+                    OriginalNoteId = OriginalNote.Id,
+                    ReferenceNoteId = referenceNote.Id,
+                    OriginalNote = OriginalNote,
+                    ReferenceNote = referenceNote
+                };
+                this.LinksList.Add(noteId, n);
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var cb = (CheckBox)sender;
+            var noteId = Int32.Parse(cb.Tag.ToString());
+            this.LinksList.Remove(noteId);
         }
     }
 }

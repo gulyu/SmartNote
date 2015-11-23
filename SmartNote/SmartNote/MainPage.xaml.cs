@@ -1,4 +1,5 @@
 ﻿using BllSmartNote;
+using Entities;
 using SmartNoteService.Entities;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,7 @@ namespace SmartNote
 
                     //Szerkesztés
                     this.smtcEditor.setText(selected.Text);
+                    this.smtcEditor.setNoteLinksAndOriginalNote(this.noteList, selected);
                     this.tbEditTitle.Text = selected.Title;
 
                     string fileNames = "";
@@ -124,6 +126,15 @@ namespace SmartNote
                     else
                     {
                         this.attachmentListView.ItemsSource = null;
+                    }
+
+                    if (selected.Links != null && selected.Links.Count > 0)
+                    {
+                        this.noteLinkListView.ItemsSource = this.selectedNote.Links;
+                    }
+                    else
+                    {
+                        this.noteLinkListView.ItemsSource = null;
                     }
 
 
@@ -183,6 +194,12 @@ namespace SmartNote
             this.selectedNote.Text = this.smtcEditor.getText();
             this.selectedNote.PlainText = this.smtcEditor.getPlainText();
             this.selectedNote.Title = this.tbEditTitle.Text;
+            List<NoteToNote> linkList = new List<NoteToNote>();
+            foreach (var item in this.smtcEditor.getLinkList())
+            {
+                linkList.Add(item.Value);
+            }
+            this.selectedNote.Links = linkList;
 
             int priority;
             if (((ComboBoxItem)this.cbPriority.SelectedValue).Content.ToString() == "Magas")
@@ -327,6 +344,11 @@ namespace SmartNote
                     this.smartNoteBll.OpenInAnotherApp(selected.Content, selected.Name);
                 }
             }
+        }
+
+        private void noteLinkListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
