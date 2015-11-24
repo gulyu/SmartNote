@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Name="pTabs" Title="Feljegyzések alkalmazás" SelectionChanged="pTabs_SelectionChanged">
-            <PivotItem Header="Keresés" Name="piKereses" TabIndex="0">
+            <PivotItem Header="Jegyzetek" Name="piKereses" TabIndex="0">
                 <SplitView Name="searchSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="70" OpenPaneLength="425
                            " HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="1137">
                     <SplitView.Pane>
@@ -52,6 +52,9 @@
                             </Button>
                             <Button x:Name="sortNotes" HorizontalAlignment="Left" Width="50" Margin="10,121,0,0" VerticalAlignment="Top" Click="sortNote_click">
                                 <SymbolIcon Symbol="Sort"/>
+                            </Button>
+                            <Button x:Name="syncNotes" HorizontalAlignment="Left" Width="50" Margin="10,450,0,0" VerticalAlignment="Top" Click="syncNotes_Click">
+                                <SymbolIcon Symbol="Sync"/>
                             </Button>
                         </Grid>
                     </SplitView.Pane>

@@ -1,5 +1,6 @@
 ﻿using BllSmartNote;
 using Entities;
+using SmartNote.WebServiceProxy;
 using SmartNoteService.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace SmartNote
         private List<StorageFile> noteFileList;
         private Note selectedNote;
         private int sortBy;
+        private SmartNoteWCFProxy proxy;
 
         public MainPage()
         {
@@ -35,6 +37,7 @@ namespace SmartNote
             this.smartNoteBll = new SmartNoteBll();
             this.noteList = new List<Note>();
             this.sortBy = 0;
+            proxy = new SmartNoteWCFProxy("http://localhost/SmartNoteService/");
             Size size = new Size { Height = 600, Width = 800 };
             ApplicationView.PreferredLaunchViewSize = size;
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -385,6 +388,12 @@ namespace SmartNote
                     this.pTabs.SelectedIndex = 2;
                 }
             }
+        }
+
+        private async void syncNotes_Click(object sender, RoutedEventArgs e)
+        {
+            SmartNoteWCFProxy proxy = new SmartNoteWCFProxy("http://localhost/SmartNoteService/");
+            bool ret = await proxy.InsertNote(this.selectedNote);
         }
     }
 }

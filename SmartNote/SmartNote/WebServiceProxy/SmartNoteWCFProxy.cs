@@ -10,18 +10,19 @@ namespace SmartNote.WebServiceProxy
 {
     public class SmartNoteWCFProxy
     {
-        public string connString { get; set; }
+        public string connStringBase { get; set; }
 
         public SmartNoteWCFProxy(string uriString)
         {
-            connString = uriString;
+            connStringBase = uriString;
         }
+
         public async Task<List<Note>> GetAllNote(User input)
         {
             GetAllNoteRequest request = new GetAllNoteRequest();
             request.Author = input;
 
-            GetAllNoteResponse res = await Invoke<GetAllNoteRequest, GetAllNoteResponse>(request);
+            GetAllNoteResponse res = await Invoke<GetAllNoteRequest, GetAllNoteResponse>(request, "GetAllNote/");
 
             return res.Notes;
         }
@@ -31,7 +32,7 @@ namespace SmartNote.WebServiceProxy
             InsertNoteRequest request = new InsertNoteRequest();
             request.Note = input;
 
-            InsertNoteResponse res = await Invoke<InsertNoteRequest, InsertNoteResponse>(request);
+            InsertNoteResponse res = await Invoke<InsertNoteRequest, InsertNoteResponse>(request, "InsertNote/");
 
             return res.Success;
         }
@@ -41,7 +42,7 @@ namespace SmartNote.WebServiceProxy
             UpdateNoteRequest request = new UpdateNoteRequest();
             request.Note = input;
 
-            UpdateNoteResponse res = await Invoke<UpdateNoteRequest, UpdateNoteResponse>(request);
+            UpdateNoteResponse res = await Invoke<UpdateNoteRequest, UpdateNoteResponse>(request, "UpdateNote/");
 
             return res.Success;
         }
@@ -51,17 +52,28 @@ namespace SmartNote.WebServiceProxy
             DeleteNoteRequest request = new DeleteNoteRequest();
             request.Note = input;
 
-            DeleteNoteResponse res = await Invoke<DeleteNoteRequest, DeleteNoteResponse>(request);
+            DeleteNoteResponse res = await Invoke<DeleteNoteRequest, DeleteNoteResponse>(request, "DeleteNote/");
 
             return res.Success;
         }
 
-        private async Task<K> Invoke<T, K>(T request)
+        public async Task<bool> DeleteAndInsertAll(List<Note> input, User author)
+        {
+            DeleteAndInsertAllRequest request = new DeleteAndInsertAllRequest();
+            request.Notes = input;
+            request.Author = author;
+
+            DeleteAndInsertAllResponse res = await Invoke<DeleteAndInsertAllRequest, DeleteAndInsertAllResponse>(request, "DeleteAndInsertAll/");
+
+            return res.Success;
+        }
+
+        private async Task<K> Invoke<T, K>(T request, string method)
         {
             using (var client = new Windows.Web.Http.HttpClient())
             {
                 TimeSpan ts = new TimeSpan(1, 0, 0);
-                var uri = new Uri(this.connString);
+                var uri = new Uri(this.connStringBase + method);
                 Windows.Web.Http.HttpStringContent input = new Windows.Web.Http.HttpStringContent(JsonConvert.SerializeObject(request), Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
 
                 var cts = new System.Threading.CancellationTokenSource();

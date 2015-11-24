@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attachment.cs" />
+    <Compile Include="DeleteAndInsertAll.cs" />
     <Compile Include="DeleteNote.cs" />
     <Compile Include="GetAllNote.cs" />
     <Compile Include="InsertNote.cs" />

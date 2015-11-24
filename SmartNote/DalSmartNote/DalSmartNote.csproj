@@ -113,7 +113,6 @@
       <DependentUpon>20151123205904_SmartNoteMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\SQLiteContextModelSnapshot.cs" />
-    <Compile Include="SmartNoteDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartNoteDalSQLite.cs" />
     <Compile Include="SQLiteContext.cs" />
