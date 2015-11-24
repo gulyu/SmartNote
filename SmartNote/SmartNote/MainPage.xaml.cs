@@ -35,8 +35,6 @@ namespace SmartNote
             this.smartNoteBll = new SmartNoteBll();
             this.noteList = new List<Note>();
             this.sortBy = 0;
-            // Some people said, that it can initialize the size of the screen, but i can't see any difference
-            // with it, or without it :)
             Size size = new Size { Height = 600, Width = 800 };
             ApplicationView.PreferredLaunchViewSize = size;
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -91,14 +89,14 @@ namespace SmartNote
             {
                 Note selected = noteListView.SelectedItem as Note;
 
-                //Bele tesszük ha null, ha nem mert lehet, hogy induláskor nincs kiválasztva semmi
+                // Bele tesszük ha null, ha nem mert lehet, hogy induláskor nincs kiválasztva semmi
                 this.selectedNote = selected;
                 if (selected != null)
                 {
                     this.piSzerkesztes.IsEnabled = true;
                     this.piOlvasas.IsEnabled = true;
 
-                    //Szerkesztés
+                    // Szerkesztés
                     this.smtcEditor.setText(selected.Text);
                     this.smtcEditor.setNoteLinksAndOriginalNote(this.noteList, selected);
                     this.tbEditTitle.Text = selected.Title;
@@ -116,7 +114,7 @@ namespace SmartNote
                     this.tbPickedFiles.Text = fileNames;
                     this.cbPriority.SelectedIndex = selected.Priority;
 
-                    //Olvasás
+                    // Olvasás
                     this.tbReadTitle.Text = selected.Title;
 
                     if (selected.Attachments != null && selected.Attachments.Count > 0)
@@ -171,7 +169,7 @@ namespace SmartNote
 
         private async void btnSaveNote_Click(object sender, RoutedEventArgs e)
         {
-            //Csatolmányok feldolgozása
+            // Csatolmányok feldolgozása
             List<Attachment> attachmentList = new List<Attachment>();
             if (this.noteFileList != null)
             {
@@ -345,7 +343,7 @@ namespace SmartNote
                 }
             }
         }
-
+        
         private void noteLinkListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListView noteLinkListView = sender as ListView;
@@ -357,7 +355,8 @@ namespace SmartNote
                 if (selected != null)
                 {
                     this.selectedNote = selected.ReferenceNote;
-                    //Olvasás
+
+                    // Olvasás
                     this.tbReadTitle.Text = selectedNote.Title;
 
                     if (selectedNote.Attachments != null && selectedNote.Attachments.Count > 0)
@@ -378,11 +377,11 @@ namespace SmartNote
                         this.noteLinkListView.ItemsSource = null;
                     }
 
-
                     this.rtbRead.IsReadOnly = false;
                     this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, selectedNote.Text);
                     this.rtbRead.IsReadOnly = true;
 
+                    // Átugrunk az olvasás tab-ra az új beállításokkal
                     this.pTabs.SelectedIndex = 2;
                 }
             }
