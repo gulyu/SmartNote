@@ -22,7 +22,7 @@
             <AppBarToggleButton Name="tgbLeft" Icon="AlignLeft" Label="AlignLeft" Click="tgbLeft_Click"/>
             <AppBarToggleButton Name="tgbCentre" Icon="AlignCenter" Label="AlignCentre" Click="tgbCentre_Click"/>
             <AppBarToggleButton Name="tgbRight" Icon="AlignRight" Label="AlignRight" Click="tgbRight_Click"/>
-            <ComboBox x:Name="cbLinks" VerticalAlignment="Center" Margin="10">
+            <ComboBox x:Name="cbLinks" VerticalAlignment="Center" Margin="10" PlaceholderText="Válassz jegyzetet">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Content="{Binding Title}" IsChecked="{Binding Checked}" Tag="{Binding Id}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>

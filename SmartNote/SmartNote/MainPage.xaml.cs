@@ -348,7 +348,44 @@ namespace SmartNote
 
         private void noteLinkListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ListView noteLinkListView = sender as ListView;
 
+            if (noteLinkListView != null)
+            {
+                NoteToNote selected = noteLinkListView.SelectedItem as NoteToNote;
+                
+                if (selected != null)
+                {
+                    this.selectedNote = selected.ReferenceNote;
+                    //Olvasás
+                    this.tbReadTitle.Text = selectedNote.Title;
+
+                    if (selectedNote.Attachments != null && selectedNote.Attachments.Count > 0)
+                    {
+                        this.attachmentListView.ItemsSource = this.selectedNote.Attachments;
+                    }
+                    else
+                    {
+                        this.attachmentListView.ItemsSource = null;
+                    }
+
+                    if (selectedNote.Links != null && selectedNote.Links.Count > 0)
+                    {
+                        this.noteLinkListView.ItemsSource = this.selectedNote.Links;
+                    }
+                    else
+                    {
+                        this.noteLinkListView.ItemsSource = null;
+                    }
+
+
+                    this.rtbRead.IsReadOnly = false;
+                    this.rtbRead.Document.SetText(TextSetOptions.FormatRtf, selectedNote.Text);
+                    this.rtbRead.IsReadOnly = true;
+
+                    this.pTabs.SelectedIndex = 2;
+                }
+            }
         }
     }
 }
