@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attachment.cs" />
+    <Compile Include="DeleteAndInsertAll.cs" />
     <Compile Include="DeleteNote.cs" />
     <Compile Include="GetAllNote.cs" />
     <Compile Include="InsertNote.cs" />
     <Compile Include="Note.cs" />
+    <Compile Include="NoteToNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateNote.cs" />
     <Compile Include="User.cs" />

@@ -11,22 +11,42 @@ namespace BllSmartNote
     {
         public bool DeleteNote(Note input)
         {
-            throw new NotImplementedException();
+            DalSmartNote.SmartNoteDal dal = new DalSmartNote.SmartNoteDal();
+            bool ret = dal.DeleteNote(input);
+
+            return ret;
         }
 
-        public List<Note> GetAllNote(User input)
+        public async Task<List<Note>> GetAllNote(User input)
         {
-            throw new NotImplementedException();
+            DalSmartNote.SmartNoteDal dal = new DalSmartNote.SmartNoteDal();
+            List<Note> ret = await dal.GetAllNote(input);
+
+            return ret;
         }
 
         public bool InsertNote(Note input)
         {
-            throw new NotImplementedException();
+            DalSmartNote.SmartNoteDal dal = new DalSmartNote.SmartNoteDal();
+            bool ret = dal.InsertNote(input);
+
+            return ret;
         }
 
         public bool UpdateNote(Note input)
         {
-            throw new NotImplementedException();
+            DalSmartNote.SmartNoteDal dal = new DalSmartNote.SmartNoteDal();
+            bool ret = dal.UpdateNote(input);
+
+            return ret;
+        }
+
+        public bool DeleteAndInsertAll(List<Note> input, User author)
+        {
+            DalSmartNote.SmartNoteDal dal = new DalSmartNote.SmartNoteDal();
+            bool ret = dal.DeleteAndInsertAll(input, author);
+
+            return ret;
         }
     }
 }

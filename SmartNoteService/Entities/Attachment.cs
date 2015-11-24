@@ -20,5 +20,7 @@ namespace SmartNoteService.Entities
         public byte[] Content { get; set; }
         [DataMember]
         public decimal Size { get; set; }
+        [DataMember]
+        public Note Note { get; set; }
     }
 }

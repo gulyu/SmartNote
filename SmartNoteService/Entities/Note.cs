@@ -23,8 +23,15 @@ namespace SmartNoteService.Entities
         [DataMember]
         public DateTime ModoficationDate { get; set; }
         [DataMember]
-        public Dictionary<Guid, int> Links { get; set; }
+        public ICollection<NoteToNote> Links { get; set; }
         [DataMember]
-        public List<Attachment> Attachments { get; set; }
+        public ICollection<Attachment> Attachments { get; set; }
+        [DataMember]
+        public int Priority { get; set; }
+        [DataMember]
+        public string PlainText { get; set; }
+        [DataMember]
+        public NoteToNote NoteToNoteNavigation { get; set; }
+        public bool Checked { get; set; }
     }
 }

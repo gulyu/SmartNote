@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartNoteService
 {
@@ -14,7 +15,7 @@ namespace SmartNoteService
     {
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetAllNote/")]
-        GetAllNoteResponse GetAllNote(GetAllNoteRequest input);
+        Task<GetAllNoteResponse> GetAllNote(GetAllNoteRequest input);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "InsertNote/")]
@@ -27,5 +28,9 @@ namespace SmartNoteService
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "DeleteNote/")]
         DeleteNoteResponse DeleteNote(DeleteNoteRequest input);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "DeleteAndInsertAll/")]
+        DeleteAndInsertAllResponse DeleteAndInsertAll(DeleteAndInsertAllRequest input);
     }
 }

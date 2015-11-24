@@ -7,21 +7,26 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using SrvSmartNote;
+using System.Threading.Tasks;
 
 namespace SmartNoteService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SmartNoteService : ISmartNoteService
     {
-        public GetAllNoteResponse GetAllNote(GetAllNoteRequest input)
+        public async Task<GetAllNoteResponse> GetAllNote(GetAllNoteRequest input)
         {
             SrvSmartNote.SmartNoteService srv = new SrvSmartNote.SmartNoteService();
             GetAllNoteResponse response = new GetAllNoteResponse();
 
-            List<Note> ret = srv.GetAllNote(input.Author);
+            List<Note> ret = await srv.GetAllNote(input.Author);
 
-            response.Notes = ret;
-
+            if (ret != null)
+            {
+                response.Notes = ret;
+                response.Success = true;
+            }
+            
             return response;
         }
 
@@ -57,6 +62,16 @@ namespace SmartNoteService
             bool ret = srv.DeleteNote(input.Note);
 
             response.Success = ret;
+
+            return response;
+        }
+
+        public DeleteAndInsertAllResponse DeleteAndInsertAll(DeleteAndInsertAllRequest input)
+        {
+            SrvSmartNote.SmartNoteService srv = new SrvSmartNote.SmartNoteService();
+            DeleteAndInsertAllResponse response = new DeleteAndInsertAllResponse();
+
+            response.Success = srv.DeleteAndInsertAll(input.Notes, input.Author);
 
             return response;
         }

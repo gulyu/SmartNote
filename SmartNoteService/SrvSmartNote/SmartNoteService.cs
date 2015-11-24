@@ -11,22 +11,42 @@ namespace SrvSmartNote
     {
         public bool DeleteNote(Note input)
         {
-            throw new NotImplementedException();
+            BllSmartNote.SmartNoteBll bll = new BllSmartNote.SmartNoteBll();
+            bool ret = bll.DeleteNote(input);
+
+            return ret;
         }
 
-        public List<Note> GetAllNote(User input)
+        public async Task<List<Note>> GetAllNote(User input)
         {
-            throw new NotImplementedException();
+            BllSmartNote.SmartNoteBll bll = new BllSmartNote.SmartNoteBll();
+            List<Note> ret = await bll.GetAllNote(input);
+
+            return ret;
         }
 
         public bool InsertNote(Note input)
         {
-            throw new NotImplementedException();
+            BllSmartNote.SmartNoteBll bll = new BllSmartNote.SmartNoteBll();
+            bool ret = bll.InsertNote(input);
+
+            return ret;
         }
 
         public bool UpdateNote(Note input)
         {
-            throw new NotImplementedException();
+            BllSmartNote.SmartNoteBll bll = new BllSmartNote.SmartNoteBll();
+            bool ret = bll.UpdateNote(input);
+
+            return ret;
+        }
+
+        public bool DeleteAndInsertAll(List<Note> input, User author)
+        {
+            BllSmartNote.SmartNoteBll bll = new BllSmartNote.SmartNoteBll();
+            bool ret = bll.DeleteAndInsertAll(input, author);
+
+            return ret;
         }
     }
 }
