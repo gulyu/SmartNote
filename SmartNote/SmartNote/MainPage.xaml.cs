@@ -258,9 +258,6 @@ namespace SmartNote
             Note newNote = new Note();
             newNote.CreationDate = DateTime.Now;
 
-            //TODO: User kezelés
-            //newNote.Author = User...
-
             //this.noteList.Add(newNote);
             this.selectedNote = newNote;
 
@@ -317,12 +314,13 @@ namespace SmartNote
             this.noteListView.ItemsSource = this.noteList;
 
             this.selectedNote = null;
+            this.searchSplitView.IsPaneOpen = false;
         }
 
         private void sortNote_click(object sender, RoutedEventArgs e)
         {
             this.sortBy++;
-            if (this.sortBy == 3)
+            if (this.sortBy == 6)
             {
                 this.sortBy = 0;
             }
@@ -392,8 +390,11 @@ namespace SmartNote
 
         private async void syncNotes_Click(object sender, RoutedEventArgs e)
         {
-            SmartNoteWCFProxy proxy = new SmartNoteWCFProxy("http://localhost/SmartNoteService/");
-            bool ret = await proxy.InsertNote(this.selectedNote);
+            //SmartNoteWCFProxy proxy = new SmartNoteWCFProxy("http://localhost/SmartNoteService/");
+            //bool ret = await proxy.DeleteAndInsertAll(this.noteList, new User());
+
+            MessageDialog msg = new MessageDialog("Funkció fejlesztés alatt!");
+            await msg.ShowAsync();
         }
     }
 }
